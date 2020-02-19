@@ -17,10 +17,10 @@ Mai világban nagy az igény a számítógépes játékokra kikapcsolódás gyan
 A felhasználó az első indításkor meg kell addnia a játékos nevét ha van ilyen név már mentve akkor betölti az eddigi eredményeket ha nincs akkor létre lesz hozzva neki egy új mentés . Mentés betöltése után a egy egyszerű menüt láthatunk majd ahol ki lehet választani a pályákat , be lehet a zene hang erejét állítani és ki lehet lépni .
 
 ## Fogalomtár 
--Reszponzív felület: Mindig igazodik a felület a képerányhoz.
--Beállítások: Itt lesz lehetőség a zene hangját állítani. 
--Pálya választó: Itt lesz lehetőség a már fel oldott pályák végig vitelére.
--Fel oldott pályák: egy pálya akkor lesz "feloldva" ha az elötte lévő szintet sikeresen meg csináltuk
--Karakter választó: A felhasználónak lehetősége lesz 2 karakter között választani. 
--Ellenfelek: Mozgó ellemek amiket ellkell kerülni azért vannak a játékban hogy nehezítsék a játékot .
--Csapdák: Statikus ellenfelek akik nem mozognak fix pozícióban vannak.
+- Reszponzív felület: Mindig igazodik a felület a képerányhoz.
+- Beállítások: Itt lesz lehetőség a zene hangját állítani. 
+- Pálya választó: Itt lesz lehetőség a már fel oldott pályák végig vitelére.
+- Fel oldott pályák: egy pálya akkor lesz "feloldva" ha az elötte lévő szintet sikeresen meg csináltuk
+- Karakter választó: A felhasználónak lehetősége lesz 2 karakter között választani. 
+- Ellenfelek: Mozgó ellemek amiket ellkell kerülni azért vannak a játékban hogy nehezítsék a játékot .
+- Csapdák: Statikus ellenfelek akik nem mozognak fix pozícióban vannak.
