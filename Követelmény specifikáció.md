@@ -9,13 +9,13 @@ Az alkalmazásunk szórakozás céljából készül. Rendelkezik egy menüvel, a
 - összeszedhető tokenek/szimbólumokban való változtatások, melyektől a játék megváltozik, ettől újnak számít. A felhasználóknak mindig lesznek új és új igényeik, ezek létrehozása kielégíthetik az igényeiket. Fontos a játékok korszerűsítése és optimalizálása.
 ## Funkcionális követelmény
 A program az elindítás után, kér a felhasználótól egy nevet. Ha olyan nevet ad meg amivel már játszott a felhasználó, akkor egy menü fogja fogadni.
-Menüpontok:
-- pályaválsztás
-- karakterválsztás
-- beállítások
-- kilépés.
 Ha olyan nevet ad meg amivel még nem játszott, akkor a játék automatikusan elindul az első pályától. Minden pálya végén le lesz osztályozva a felhasználó teljesítménye. A pályák elkezdésénél egy timer indul, ami méri a pályák teljesítési idejét. Ez idő alapján kapja a felhasználó az osztályozást(1,2 vagy 3 csillag). A következő pálya csak az előző pálya teljesítése után lesz elérhető.
 A program adatbázisban tárolja az eddig elért eredményeket. Az eredmények a pályaválasztás menüpontnál látszódnak.
 A karakterválsztás menüpontban két karakter közül lehet választani.
 A beállítások menüpontban a játék hangerejét lehet állítani.
 A kilépés menüpontot választva, bezárja a programot.
+Menüpontok:
+- pályaválsztás
+- karakterválsztás
+- beállítások
+- kilépés.
