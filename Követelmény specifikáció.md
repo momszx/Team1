@@ -10,6 +10,10 @@ Az alkalmazásunk szórakozás céljából készül. Rendelkezik egy menüvel, a
 - pontozási módokban
 - összeszedhető tokenek/szimbólumokban való változtatások, melyektől a játék megváltozik, ettől újnak számít. A felhasználóknak mindig lesznek új és új igényeik, ezek létrehozása kielégíthetik az igényeiket. Fontos a játékok korszerűsítése és optimalizálása.
 
+## Vágyálom Rendszer
+A project célja egy olyan rendszer, ami a szórakoztatást és kellemes időtöltést biztosítja.
+A rendszer **csak windows plaformon** lesz elérhető. A menü egy felhasználóbarát **3 pontos felület** lesz. A játékos a nevét megadva megkezdheti a játékot, ami egy **platformer-adventure orientált** környezetben történik. **2D-s**, **8-bites** grafikát szánunk a rendszernek, ami egy retrosabb hangulatot nyújt a felhasználónak. Természetesen látványosan és változatosan megoldva, hogy lekösse a játékos figyelmét. A játék fő célja, hogy az adott szintet a lehető leggyorsabban teljesítse, ergo eljusson A-ból B-be.a Ezt a teljesítményt **adatbázisban szeretnénk tárolni** a felhasználóval együtt és kialakítani egy jutalom rendszert a **futott idő alapján**, így a játékosok versenghetnek egymással. A pályákon az **ellenfelek** és a **csapdák** megnehezítik a játékos dolgát, ha egyszer is hozzájuk érünk, előlröl kell kezdeni. A további pályákat kizárólag az előző teljesítésével lehet feloldani, illetve a pálya értékelését láthatjuk az adott szintet mutató blokk, így nyomom lehet követni az eredményt.
+
 ## Funkcionális követelmény
 A program az elindítás után, kér a felhasználótól egy nevet. Ha olyan nevet ad meg amivel már játszott a felhasználó, akkor egy menü fogja fogadni.
 Ha olyan nevet ad meg amivel még nem játszott, akkor a játék automatikusan elindul az első pályától. Minden pálya végén le lesz osztályozva a felhasználó teljesítménye. A pályák elkezdésénél egy timer indul, ami méri a pályák teljesítési idejét. Ez idő alapján kapja a felhasználó az osztályozást(1,2 vagy 3 csillag). A következő pálya csak az előző pálya teljesítése után lesz elérhető.
