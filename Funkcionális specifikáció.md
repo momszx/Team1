@@ -17,3 +17,6 @@ A szükség, ami ösztönzött minket hogy implementáljuk ezt az alkalmazást a
 | Statisztika | I6 | Toplista         | A játékosok idejét, és pontszámát egy toplistán jelenítjük meg a szint teljesítése után.                               |
 | Statisztika | I7 | Adatbázis        | Itt tároljuk a játékos nevét, előrehaladását, pontszámát és idejét.                                                    |
 |   Feature   | I8 | Időszámláló      | Az időzítő egyből a pálya megkezdése után elindul, teljesítés után leáll.                                              |
+
+## Igényelt üzleti folyamatok modellje
+Az emberek igénye a videójátékok iránt mindig is magas volt. Fő célunk hogy ezeket a személyeket szórakoztassuk. A játékosok szeretik összemérni tudásukat, és egy hosszú nap után kicsit kikapcsolni. Egy felhasználóbarát egyszerű retro játék elkészítése a cél, ami standard időtöltést és kihívást nyújthat a játékosoknak. Kevés manapság a régibb típusú játék, főleg azoknak az embereknek készült, akik kicsit visszamennének az időben, mikor még nem volt se lootbox, se kozmetika, se ranked, se balance probléma, csak a kész játék és a játékos.
