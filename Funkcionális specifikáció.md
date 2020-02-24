@@ -18,5 +18,11 @@ A szükség, ami ösztönzött minket hogy implementáljuk ezt az alkalmazást a
 | Statisztika | I7 | Adatbázis        | Itt tároljuk a játékos nevét, előrehaladását, pontszámát és idejét.                                                    |
 |   Feature   | I8 | Időszámláló      | Az időzítő egyből a pálya megkezdése után elindul, teljesítés után leáll.                                              |
 
+## Jelenlegi üzleti folyamatok modellje
+Az idő előrehaladtával a játékok egyre nagyobb figyelmet kapnak a világban. Hatalmas ipar épül köré, meg lehet belőle élni streamerkedés által, akár hivatásos játékos is lehetsz egy nagyobb esport csapatban. Csak Magyarországon, közel 4 millió ember játszik valamiféle játékkal. A technológia előrehaladtával az érdeklősés is egyre nagyobb lesz. Fő célunk egy játék fejlesztése, amivel a játékosokat szórakoztatjuk.
+
 ## Igényelt üzleti folyamatok modellje
 Az emberek igénye a videójátékok iránt mindig is magas volt. Fő célunk hogy ezeket a személyeket szórakoztassuk. A játékosok szeretik összemérni tudásukat, és egy hosszú nap után kicsit kikapcsolni. Egy felhasználóbarát egyszerű retro játék elkészítése a cél, ami standard időtöltést és kihívást nyújthat a játékosoknak. Kevés manapság a régibb típusú játék, főleg azoknak az embereknek készült, akik kicsit visszamennének az időben, mikor még nem volt se lootbox, se kozmetika, se ranked, se balance probléma, csak a kész játék és a játékos.
+
+## Használati esetek
+A játékos jogosult a játék elindítására, minden beépített funkció használatára. Megtekintheti a toplistát, választhat pályát, személyre szabhatja a beállításokat.
