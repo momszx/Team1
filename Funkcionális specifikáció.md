@@ -27,6 +27,12 @@ Az emberek igénye a videójátékok iránt mindig is magas volt. Fő célunk ho
 ## Használati esetek
 A játékos jogosult a játék elindítására, minden beépített funkció használatára. Megtekintheti a toplistát, választhat pályát, személyre szabhatja a beállításokat.
 
+## A rendszer funkciói
+- Mentés: Elmenti a játékos eddig eleért ederményeit az adatbázisba. 
+- Betöltés: Betölti a játékos eddigi eredményeit az adatbázisba.
+- Beállítások: A játékos könyedén beállíthatja a hangot.
+
+
 ## Fogalomtár 
 - Reszponzív felület: Mindig igazodik a felület a képerányhoz.
 - Beállítások: Itt lesz lehetőség a zene hangját állítani. 
