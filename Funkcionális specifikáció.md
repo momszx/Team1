@@ -26,3 +26,12 @@ Az emberek igénye a videójátékok iránt mindig is magas volt. Fő célunk ho
 
 ## Használati esetek
 A játékos jogosult a játék elindítására, minden beépített funkció használatára. Megtekintheti a toplistát, választhat pályát, személyre szabhatja a beállításokat.
+
+## Fogalomtár 
+- Reszponzív felület: Mindig igazodik a felület a képerányhoz.
+- Beállítások: Itt lesz lehetőség a zene hangját állítani. 
+- Pálya választó: Itt lesz lehetőség a már fel oldott pályák végig vitelére.
+- Fel oldott pályák: egy pálya akkor lesz "feloldva" ha az elötte lévő szintet sikeresen meg csináltuk
+- Karakter választó: A felhasználónak lehetősége lesz 2 karakter között választani. 
+- Ellenfelek: Mozgó ellemek amiket ellkell kerülni azért vannak a játékban hogy nehezítsék a játékot .
+- Csapdák: Statikus ellenfelek akik nem mozognak fix pozícióban vannak.
