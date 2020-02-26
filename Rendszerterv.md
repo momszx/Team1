@@ -6,6 +6,22 @@ A rendszer célja a folyamatosan újuló igények kielégítése valamint a ját
 ## Architekturális terv
 A rendszerhez szükség van egy adatbázis szerverre, ebben az esetben MySql-t használunk. Az asztali program JavaFX keretrendszer használatával készül el. Bejelentkezés után elérhetőek lesznek az eddig elért eredmények.
 
+## Funkcionális terv
+Rendszerszereplők:
+Felhasználók
+
+Rendszerhasználati esetek és lefutásaik:
+Felhasználók:
+- Név megadása ami betölti az előzményeket, ha voltak, ha nem akkor új felhasználót hoz létre
+- Karakter kiválasztása
+- Pálya kiválasztása
+- Következő pályára lépés 
+- Pálya újrakezdése
+- Zene lenémítása
+- Zene felhangosítása
+- Toplista megtekintése
+- Kilépés
+
 ## Teszt terv
 
 A tesztelések célja a rendszer és komponensei funkcionalitásának teljes vizsgálata, ellenőrzése, a rendszer által megvalósított üzleti szolgáltatások verifikálása.
