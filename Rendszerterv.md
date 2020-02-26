@@ -28,6 +28,16 @@ Felhasználók:
 - Toplista megtekintése
 - Kilépés
 
+## Fizikai környezet
+
+- Az alkalmazás PC-re készül
+- A következő operációs rendszereken lesz elérhető: **Windows, Linux, Macintosh**
+- Nincsenek megvásárolt komponenseink
+- Nincsenek alkalmazáson belüli mikrotranzakciók
+**Fejlesztői eszközök:**
+- IntelliJ IDE
+- MySQL Workbench
+
 ## Teszt terv
 A tesztelések célja a rendszer és komponensei funkcionalitásának teljes vizsgálata, ellenőrzése, a rendszer által megvalósított üzleti szolgáltatások verifikálása.
 
