@@ -7,10 +7,10 @@ A rendszer célja a folyamatosan újuló igények kielégítése valamint a ját
 A rendszerhez szükség van egy adatbázis szerverre, ebben az esetben MySql-t használunk. Az asztali program JavaFX keretrendszer használatával készül el. Bejelentkezés után elérhetőek lesznek az eddig elért eredmények.
 
 ## Funkcionális terv
-Rendszerszereplők:
+**Rendszerszereplők:**
 Felhasználók
 
-Rendszerhasználati esetek és lefutásaik:
+**Rendszerhasználati esetek és lefutásaik:**
 Felhasználók:
 - Név megadása ami betölti az előzményeket, ha voltak, ha nem akkor új felhasználót hoz létre
 - Karakter kiválasztása
