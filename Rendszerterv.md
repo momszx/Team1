@@ -23,10 +23,9 @@ Felhasználók:
 - Kilépés
 
 ## Teszt terv
-
 A tesztelések célja a rendszer és komponensei funkcionalitásának teljes vizsgálata, ellenőrzése, a rendszer által megvalósított üzleti szolgáltatások verifikálása.
 
-Tesztelési eljárások
+**Tesztelési eljárások**
 - Unit teszt: A teszt elsődleges célja: az eddig meglévő funkcióknak a különböző böngészőkkel való kompatibilitásának tesztelése. A tesztet a fejlesztők végzik. 
 Az eljárás sikeres, ha különböző operációs rendszereken megfelelően működnek a különböző funkciók. A teszt időtartama egy hét.
 
@@ -39,3 +38,6 @@ Ha hiba lép fel, a fejlesztők kijavítják a lehető leghamarabb. Sok hiba ese
 
 - Tesztelendő funkciók, Backend Service: Képesnek kell lennie menteni a játékos adatait és azokat betölteni  
 Képesnek kell lennie minden felületen elérhető funkciók biztosítására.
+
+## Telepítési terv
+A Játékos a web oldalunkat felkeresve a letöltheti. Itt kettő változat közül választhat egy pocket editon közül mely telepítés nélkül működik és rögtön játszható. Teleíthető váltazat varászló segítségével ez a változat végig vezeti a felhasználót a telepítés menetén kényelmesen , meg szokott módon és minden hiányzó programot , .dll telepít. Sikeres telepítés után a játék már rögtön játszható és élvezhető. 
