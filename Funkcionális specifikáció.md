@@ -32,7 +32,6 @@ A játékos jogosult a játék elindítására, minden beépített funkció hasz
 - Betöltés: Betölti a játékos eddigi eredményeit az adatbázisba.
 - Beállítások: A játékos könyedén beállíthatja a hangot.
 
-
 ## Fogalomtár 
 - Reszponzív felület: Mindig igazodik a felület a képerányhoz.
 - Beállítások: Itt lesz lehetőség a zene hangját állítani. 
@@ -40,4 +39,10 @@ A játékos jogosult a játék elindítására, minden beépített funkció hasz
 - Fel oldott pályák: egy pálya akkor lesz "feloldva" ha az elötte lévő szintet sikeresen meg csináltuk
 - Karakter választó: A felhasználónak lehetősége lesz 2 karakter között választani. 
 - Ellenfelek: Mozgó ellemek amiket ellkell kerülni azért vannak a játékban hogy nehezítsék a játékot .
-- Csapdák: Statikus ellenfelek akik nem mozognak fix pozícióban vannak.
+- Csapdák: Statikus ellenfelek akik nem mozognak fix pozícióban vannak.  
+
+## Funkció-Követelmény megfeleltetés
+- **Modifikáció:** *-név:* A felhasználó saját profiljába belépve képes lesz folytatni az elkezdett játékot.
+- **Feladattípus:** *-pályák:* A felhasználónak pályákat kell teljesítenie, aminek az eredményeit adatbázisban fogunk tárolni.
+- **Statisztika:** *-toplista:* Külön felület, amin a felhasználó láthatja az eddig elért eredményeket.
+- **Felület:** *-menü:* Menüpontok, ahol a felhasználó választhat .
