@@ -4,7 +4,13 @@
 A rendszer célja a folyamatosan újuló igények kielégítése valamint a játékok izgalmasságának fenntartása. A játékos választhat pályát, melyek egyre nehezednek, váratlan események történhetnek, így ha végig akarják játszani a játékot akkor fejleszteniük kell a reakcióidejüket valamint a memóriájukat(pl egy hosszúpályánál), megoldóképességüket. Nem célunk webes vagy telefonos felületre is implementálni a játékot, csak asztali alkalmazásként szeretnénk futhatóvá tenni. A játékosok pontokat szereznek a pálya százalékos teljesítése és a felszedett szimbólumok függvényében, amiket toplistán megjelenítünk. A rendszer az adatokat (pl a toplistához) az adatbázisból kapjuk.  
 
 ## Architekturális terv
-A rendszerhez szükség van egy adatbázis szerverre, ebben az esetben MySql-t használunk. Az asztali program JavaFX keretrendszer használatával készül el. Bejelentkezés után elérhetőek lesznek az eddig elért eredmények.
+A rendszerhez szükség van egy adatbázis szerverre, ebben az esetben MySql-t használunk. Az asztali program JavaFX keretrendszer használatával készül el. Bejelentkezés után elérhetőek lesznek az eddig elért eredmények.  
+
+## Implementációs terv
+### Windows Desktop Application  
+Az alkalmazás felhasználói oldalát asztali alkalmazásnak tervezzük. A terv a JAVA nyelv használatát írja elő, főleg mert ismerős és könnyen használható.
+### Adatbázis  
+A tervezett szolgáltatás jellegét tekintve egy központi adatbázis használata elengedhetetlen. A felhasználók, és azok adatainak rögzítése, tárolása és rendszerezése céljából a modern adatbáziskezelés konvenciói a legcélravezetőbbek. Arra, hogy ezeket implementálhassuk, a MySQL rendszerét választottuk, az ismeretségeink tudatában, és a megbízhatóság fényében.  
 
 ## Funkcionális terv
 **Rendszerszereplők:**
