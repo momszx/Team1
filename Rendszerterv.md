@@ -28,8 +28,18 @@ Felhasználók:
 - Toplista megtekintése
 - Kilépés
 
-## Fizikai környezet
+**Menü-hierarchiák:**
+MAIN MENÜ
+- Játék
+- Toplista megjelenítése
+- Hangerő beállítása
 
+JÁTÉK
+- Név megadása
+- Karakter kiválasztása
+- Pálya kiválasztása
+
+## Fizikai környezet
 - Az alkalmazás PC-re készül
 - A következő operációs rendszereken lesz elérhető: **Windows, Linux, Macintosh**
 - Nincsenek megvásárolt komponenseink
@@ -37,6 +47,9 @@ Felhasználók:
 **Fejlesztői eszközök:**
 - IntelliJ IDE
 - MySQL Workbench
+
+## Absztrakt domain modell
+A rendszert a felhasználó egy Windowsos alkalmazáson keresztül érheti majd el, aminek az elkészítését Java nyelven tervezzük. A felület lehetővé teszi majd a felhasználó számára a név megadásával a bejelentkezést. Későbbiekben ehhez a névhez rendeljük a felhasználó pontjait amit megjelenítünk egy táblázatban a többi felhasználó nevével és pontjával. A felhasználó választhat két karakter közül, illetve pályák közül. Akkor léphet a következő pályára, ha az azt megelőzőt végigjátszotta, azaz legalább 1 csillagot szerzett. Csillagot a pálya teljesítése alapján kap a pálya végigjárása és a pálya hossza arányában. A hangerősséget lehet majd állítani illetve lenémítani. A toplista adatai egy MySQL adatbázisban lesznek tárolva.
 
 ## Teszt terv
 A tesztelések célja a rendszer és komponensei funkcionalitásának teljes vizsgálata, ellenőrzése, a rendszer által megvalósított üzleti szolgáltatások verifikálása.
