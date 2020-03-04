@@ -11,6 +11,7 @@ A rendszer célja a folyamatosan újuló igények kielégítése valamint a ját
 **Belkovics Dénes:** Tileset, Háttér megrajzolása
 
 ## Üzleti folyamatok modellje
+A felhasználó az első indításkor meg kell addnia a játékos nevét ha van ilyen név már mentve akkor betölti az eddigi eredményeket ha nincs akkor létre lesz hozzva neki egy új mentés . Mentés betöltése után a egy egyszerű menüt láthatunk majd ahol ki lehet választani a pályákat , be lehet a zene hang erejét állítani és ki lehet lépni.
 
 ## Követelmények
 **Funkcionális követelmények:**
