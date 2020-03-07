@@ -3,6 +3,45 @@
 ## A rendszer célja
 A rendszer célja a folyamatosan újuló igények kielégítése valamint a játékok izgalmasságának fenntartása. A játékos választhat pályát, melyek egyre nehezednek, váratlan események történhetnek, így ha végig akarják játszani a játékot akkor fejleszteniük kell a reakcióidejüket valamint a memóriájukat(pl egy hosszúpályánál), megoldóképességüket. Nem célunk webes vagy telefonos felületre is implementálni a játékot, csak asztali alkalmazásként szeretnénk futhatóvá tenni. A játékosok pontokat szereznek a pálya százalékos teljesítése és a felszedett szimbólumok függvényében, amiket toplistán megjelenítünk. A rendszer az adatokat (pl a toplistához) az adatbázisból kapjuk.  
 
+## Projektterv
+**Résztvevők és főbb szerepköreik:**
+**Szabó Nóra:** Karakter, Ellenfél megrajzolása
+**Donkó Márk:**
+**Czafik Milán:**
+**Belkovics Dénes:** Tileset, Háttér megrajzolása
+
+## Üzleti folyamatok modellje
+A felhasználó az első indításkor meg kell addnia a játékos nevét ha van ilyen név már mentve akkor betölti az eddigi eredményeket ha nincs akkor létre lesz hozzva neki egy új mentés . Mentés betöltése után a egy egyszerű menüt láthatunk majd ahol ki lehet választani a pályákat , be lehet a zene hang erejét állítani és ki lehet lépni.
+
+## Követelmények
+**Funkcionális követelmények:**
+	- Felhasználó nevének tárolása
+	- Felhasználó pontszámának tárolása
+	- Felhasználó idejének tárolása
+	- Felhasználó in-game progress-ének tárolása
+	- Főmenü kezelhetősége
+	- Toplista
+	- Időszámláló
+
+**Nem funkcionális követelmények:**
+	- Letisztult, felhasználóbarát felület
+	- Betöltés és mentés gyors működése
+	- Optimalizáltság
+
+**Törvényi előírások, szabványok:**
+	- GDPR-nak való megfelelés
+	- Általános információk
+	- Szellemi tulajdon
+	- Használat
+	- Felelősségi szabályok
+	- Technikai követelmények
+	- Garancia és kártérítés
+	- 2013. évi V. törvény
+	- Európai Parlament és Tanács 2016. április 27-i (EU) 2016/679 Rendelete
+	- 2011. évi CXII. törvény
+	- a szerzői jogról szóló 1999. évi LXXVI. törvény
+	- 2001. évi CVIII. törvény
+
 ## Architekturális terv
 A rendszerhez szükség van egy adatbázis szerverre, ebben az esetben MySql-t használunk. Az asztali program JavaFX keretrendszer használatával készül el. Bejelentkezés után elérhetőek lesznek az eddig elért eredmények.  
 
