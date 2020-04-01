@@ -2,6 +2,7 @@ package com.company;
 
 import com.company.entity.Player;
 import com.company.inputs.KeyInput;
+import com.company.tile.Wall;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,6 +30,7 @@ public class Game extends Canvas  implements Runnable{
         handler =new Handler();
         addKeyListener(new KeyInput());
         handler.addEntity(new Player(300,512,64,64,true,Id.player,handler));
+        handler.addTile(new Wall(200,200,64,64,true,Id.wall,handler));
      }
 
     private synchronized void start(){

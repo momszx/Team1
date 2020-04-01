@@ -71,4 +71,8 @@ public abstract class Tile {
     public void setId(Id id) {
         this.id = id;
     }
+
+    public Rectangle getBounds(){
+        return new Rectangle(getX(), getY() ,width, height);
+    }
 }
