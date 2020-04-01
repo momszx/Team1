@@ -1,5 +1,7 @@
 package com.company;
 
+import com.company.entity.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -11,7 +13,9 @@ public class Game extends Canvas  implements Runnable{
     public static  final int HEIGHT = WIDTH/14*10;
     public static  final int SCALE =200;
     public static final String TITTLE="GAME";
-
+    private Thread thread;
+    private boolean running = false;
+    public static Handler handler;
 
     public Game(){
     Dimension size = new Dimension(WIDTH*SCALE,HEIGHT*SCALE);
@@ -19,8 +23,11 @@ public class Game extends Canvas  implements Runnable{
     setMaximumSize(size);
     setMinimumSize(size);
     }
-    private Thread thread;
-    private boolean running = false;
+
+     private void init(){
+        handler =new Handler();
+        handler.addEntity(new Player(300,512,64,64,true,Id.player,handler));
+     }
 
     private synchronized void start(){
         if(running) return;
@@ -31,6 +38,7 @@ public class Game extends Canvas  implements Runnable{
 
     @Override
     public void run() {
+        init();
         long lastTime = System.nanoTime(); //current time in nanoseconds
         long timer = System.currentTimeMillis(); //current time in milliseconds
         double delta = 0.0;
@@ -77,12 +85,13 @@ public class Game extends Canvas  implements Runnable{
         Graphics g = bs.getDrawGraphics();
         g.setColor(Color.MAGENTA);
         g.fillRect(0,0,getWidth(), getHeight());
+        handler.render(g);
         g.dispose();
         bs.show();
     }
 
     public void tick(){ //update
-
+        handler.tick();
     }
 
     public static void main (String[] args){
