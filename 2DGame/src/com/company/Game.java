@@ -1,6 +1,7 @@
 package com.company;
 
 import com.company.entity.Player;
+import com.company.inputs.KeyInput;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +12,7 @@ public class Game extends Canvas  implements Runnable{
 
     public static  final int WIDTH =200;
     public static  final int HEIGHT = WIDTH/14*10;
-    public static  final int SCALE =200;
+    public static  final int SCALE =4;
     public static final String TITTLE="GAME";
     private Thread thread;
     private boolean running = false;
@@ -26,6 +27,7 @@ public class Game extends Canvas  implements Runnable{
 
      private void init(){
         handler =new Handler();
+        addKeyListener(new KeyInput());
         handler.addEntity(new Player(300,512,64,64,true,Id.player,handler));
      }
 
@@ -39,6 +41,7 @@ public class Game extends Canvas  implements Runnable{
     @Override
     public void run() {
         init();
+        requestFocus();
         long lastTime = System.nanoTime(); //current time in nanoseconds
         long timer = System.currentTimeMillis(); //current time in milliseconds
         double delta = 0.0;
