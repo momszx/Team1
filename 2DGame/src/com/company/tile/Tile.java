@@ -1,8 +1,11 @@
 package com.company.tile;
 
+import com.company.Handler;
+import com.company.Id;
+
 import java.awt.*;
 
-public class Tile {
+public abstract class Tile {
     public int x;
     public int y;
     public int width, height;
@@ -11,20 +14,26 @@ public class Tile {
     public int velX; //velocity
     public int velY;
 
-    public Tile(int x, int y, int width, int height, boolean solid){
+    public Id id;
+
+    public Handler handler;
+
+    public Tile(int x, int y, int width, int height, boolean solid, Id id,Handler handler){
         this.setX(x);
         this.setY(y);
         this.width=width;
         this.height=height;
-        this.setSolid(solid);
+        this.solid=solid;
+        this.id=id;
+        this.handler=handler;
     }
 
-    public void render(Graphics g){
+    public abstract void render(Graphics g);
 
-    }
-    public void tick(){
-        x+=velX;
-        y+=velY;
+    public abstract void tick();
+
+    public void die(){
+        handler.removeTile(this);
     }
 
     public int getX() {
@@ -47,16 +56,19 @@ public class Tile {
         return solid;
     }
 
-    public void setSolid(boolean solid) {
-        this.solid = solid;
-    }
-
-
     public void setVelX(int velX) {
         this.velX = velX;
     }
 
     public void setVelY(int velY) {
         this.velY = velY;
+    }
+
+    public Id getId() {
+        return id;
+    }
+
+    public void setId(Id id) {
+        this.id = id;
     }
 }
