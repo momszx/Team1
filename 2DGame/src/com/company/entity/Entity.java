@@ -11,11 +11,14 @@ public abstract class Entity {
     public int width, height;
     public boolean solid;
 
+    public boolean jumping = false;
+    public boolean falling = true;
+    public double gravity = 0.0;
+
     public int velX; //velocity
     public int velY;
 
     public Id id;
-
     public Handler handler;
 
     public Entity(int x, int y, int width, int height, boolean solid, Id id,Handler handler){
