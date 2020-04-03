@@ -1,6 +1,8 @@
 package com.company;
 
 import com.company.entity.Player;
+import com.company.graphics.Sprite;
+import com.company.graphics.SpriteSheet;
 import com.company.inputs.KeyInput;
 import com.company.tile.Wall;
 
@@ -19,6 +21,10 @@ public class Game extends Canvas  implements Runnable{
     private boolean running = false;
     public static Handler handler;
 
+    public static SpriteSheet sheet;
+
+    public static Sprite grass;
+
     public Game(){
     Dimension size = new Dimension(WIDTH*SCALE,HEIGHT*SCALE);
     setPreferredSize(size);
@@ -28,7 +34,9 @@ public class Game extends Canvas  implements Runnable{
 
      private void init(){
         handler =new Handler();
+        sheet = new SpriteSheet("/SpriteSheet.png");
         addKeyListener(new KeyInput());
+        grass = new Sprite(sheet,1,1);
         handler.addEntity(new Player(300,200,64,64,true,Id.player,handler));
      }
 

@@ -1,5 +1,6 @@
 package com.company.tile;
 
+import com.company.Game;
 import com.company.Handler;
 import com.company.Id;
 
@@ -11,8 +12,7 @@ public class Wall extends Tile{
     }
 
     public void render(Graphics g) {
-        g.setColor(Color.BLACK);
-        g.fillRect(x, y, width, height);
+        g.drawImage(Game.grass.getBufferedImage(), x, y, width, height, null);
     }
 
     public void tick() {
