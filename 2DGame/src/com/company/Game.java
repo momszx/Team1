@@ -1,5 +1,6 @@
 package com.company;
 
+import com.company.entity.Entity;
 import com.company.entity.Player;
 import com.company.graphics.Sprite;
 import com.company.graphics.SpriteSheet;
@@ -22,7 +23,7 @@ public class Game extends Canvas  implements Runnable{
     public static Handler handler;
 
     public static SpriteSheet sheet;
-
+    public Camera cam;
     public static Sprite grass;
 
     public Game(){
@@ -38,6 +39,7 @@ public class Game extends Canvas  implements Runnable{
         addKeyListener(new KeyInput());
         grass = new Sprite(sheet,1,1);
         handler.addEntity(new Player(300,200,64,64,true,Id.player,handler));
+        cam =new Camera();
      }
 
     private synchronized void start(){
@@ -97,13 +99,27 @@ public class Game extends Canvas  implements Runnable{
         Graphics g = bs.getDrawGraphics();
         g.setColor(Color.MAGENTA);
         g.fillRect(0,0,getWidth(), getHeight());
+        g.translate(cam.getX(),cam.getY());
         handler.render(g);
         g.dispose();
         bs.show();
     }
 
-    public void tick(){ //update
+    public int getFrameWidth(){
+        return WIDTH*SCALE;
+    }
+
+    public int getFrameHeight(){
+        return HEIGHT*SCALE;
+    }
+
+    public void tick(){
         handler.tick();
+        for(Entity e:handler.entity){
+            if (e.getId()==Id.player){
+                cam.tick(e);
+            }
+        }
     }
 
     public static void main (String[] args){
@@ -117,5 +133,4 @@ public class Game extends Canvas  implements Runnable{
         frame.setVisible(true);
         game.start();
     }
-
 }
