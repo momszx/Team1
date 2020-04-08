@@ -1,5 +1,5 @@
 package com.company;
 
 public enum Id {
-    player, wall;
+    player, wall, wine;
 }
