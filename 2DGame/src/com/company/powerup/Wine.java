@@ -13,7 +13,7 @@ public class Wine extends Entity {
     }
 
     public void render(Graphics g) {
-        g.drawImage(Game.wine.getBufferedImage(),x,y,width,height,null);
+       // g.drawImage(Game.wine.getBufferedImage(),x,y,width,height,null);
     }
 
     public void tick() {

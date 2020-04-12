@@ -26,7 +26,7 @@ public class Player extends Entity{
             x=0;
         }
         if(y<=0){
-            x=0;
+            y=0;
         }
         if(x+width>=1080) {
             x =1080-width;
@@ -75,7 +75,7 @@ public class Player extends Entity{
             }
         }
         if(jumping) {
-            gravity -= 0.1;
+            gravity -= 0.2;
             setVelY((int) -gravity);
             if (gravity <= 0.0) {
                 jumping = false;
@@ -83,7 +83,7 @@ public class Player extends Entity{
             }
         }
         if(falling) {
-            gravity +=0.1;
+            gravity +=0.2;
             setVelY((int)gravity);
         }
     }
