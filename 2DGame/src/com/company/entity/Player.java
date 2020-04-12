@@ -58,7 +58,10 @@ public class Player extends Entity{
                     setVelX(0);
                     x = t.getX()+t.width;
                 }
-
+                if(getBoundsRight().intersects(t.getBounds())) {
+                    setVelX(0);
+                    x = t.getX()-t.width;
+                }
             }
         }
         for (int i=0;i<handler.entity.size();i++){

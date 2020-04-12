@@ -22,9 +22,7 @@ public class KeyInput implements KeyListener {
                     case KeyEvent.VK_W:
                         if (!en.jumping) en.jumping = true;
                         break;
-                    case KeyEvent.VK_S:
-                        en.setVelY(5);
-                        break;
+                    
                     case KeyEvent.VK_A:
                         en.setVelX(-5);
                         break;
