@@ -34,6 +34,7 @@ public class KeyInput implements KeyListener {
                 }
             }
         }
+    }
 
         public void keyReleased (KeyEvent e){
             int keya = e.getKeyCode();
