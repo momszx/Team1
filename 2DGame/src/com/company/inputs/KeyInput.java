@@ -25,9 +25,11 @@ public class KeyInput implements KeyListener {
                     
                     case KeyEvent.VK_A:
                         en.setVelX(-5);
+                        en.facing = 0;
                         break;
                     case KeyEvent.VK_D:
                         en.setVelX(5);
+                        en.facing = 1;
                         break;
                 }
             }

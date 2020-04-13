@@ -1,13 +1,11 @@
 package com.company;
 
 import com.company.entity.Entity;
-import com.company.entity.Player;
+import com.company.entity.mob.Player;
 import com.company.graphics.Sprite;
 import com.company.graphics.SpriteSheet;
 import com.company.inputs.KeyInput;
-import com.company.tile.Wall;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
@@ -26,6 +24,8 @@ public class Game extends Canvas  implements Runnable{
     public Camera cam;
     public static Sprite grass;
 
+    public static Sprite player[] = new Sprite[6];
+
     public Game(){
     Dimension size = new Dimension(WIDTH*SCALE,HEIGHT*SCALE);
     setPreferredSize(size);
@@ -38,6 +38,12 @@ public class Game extends Canvas  implements Runnable{
         sheet = new SpriteSheet("/SpriteSheet.png");
         addKeyListener(new KeyInput());
         grass = new Sprite(sheet,1,1);
+
+        for (int i=0;i<player.length;i++)
+        {
+           player[i] = new Sprite(sheet, i+1, 16);
+        }
+
         handler.addEntity(new Player(300,200,64,64,true,Id.player,handler));
         cam =new Camera();
      }

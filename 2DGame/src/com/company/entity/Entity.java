@@ -9,8 +9,9 @@ public abstract class Entity {
     public int x;
     public int y;
     public int width, height;
-    public boolean solid;
+    public int facing = 0;
 
+    public boolean solid;
     public boolean jumping = false;
     public boolean falling = true;
     public double gravity = 0.0;
