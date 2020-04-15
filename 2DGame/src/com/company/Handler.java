@@ -1,7 +1,7 @@
 package com.company;
 
 import com.company.entity.Entity;
-import com.company.entity.Player;
+import com.company.entity.mob.Player;
 import com.company.tile.Tile;
 import com.company.tile.Wall;
 
