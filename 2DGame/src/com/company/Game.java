@@ -11,17 +11,24 @@ import com.company.inputs.MouseInput;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 public class Game extends Canvas  implements Runnable{
 
-    public static  final int WIDTH =200;
-    public static  final int HEIGHT = WIDTH/14*10;
+    public static  final int WIDTH =450; //Ezekkel lehet szorakozni, nekem nagy dög monitorom van, szóval így jó :D
+    public static  final int HEIGHT = 300; //same
     public static  final int SCALE =4;
     public static final String TITTLE="GAME";
     private Thread thread;
     private boolean running = false;
+
+    private BufferedImage image;
+
     public static boolean playing = false;
+
     public static Handler handler;
     public static Launcher launcher;
     public static MouseInput mouse;
@@ -48,6 +55,7 @@ public class Game extends Canvas  implements Runnable{
         addKeyListener(new KeyInput());
         addMouseListener(mouse);
         addMouseMotionListener(mouse);
+        cam =new Camera();
         grass = new Sprite(sheet,1,1);
         wine= new Sprite(sheet,1,2);
 
@@ -56,8 +64,13 @@ public class Game extends Canvas  implements Runnable{
            player[i] = new Sprite(sheet, i+1, 16);
         }
 
-        handler.addEntity(new Player(300,200,64,64,true,Id.player,handler));
-        cam =new Camera();
+         try {
+             image = ImageIO.read(getClass().getResource("/level.png"));
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+         handler.createLevel(image);
+
      }
 
     private synchronized void start(){

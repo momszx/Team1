@@ -22,18 +22,7 @@ public class Player extends Entity{
     public void tick() {
         x+=velX;
         y+=velY;
-        if(x<=0){
-            x=0;
-        }
-        if(y<=0){
-            y=0;
-        }
-        if(x+width>=1080) {
-            x =1080-width;
-        }
-        if(x+height>=771) {
-            x =771-height;
-        }
+
         for(Tile t:handler.tile){
             if(!t.solid) break;
             if(t.getId()==Id.wall){
