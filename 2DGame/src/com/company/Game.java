@@ -29,6 +29,7 @@ public class Game extends Canvas  implements Runnable{
     public static SpriteSheet sheet;
     public Camera cam;
     public static Sprite grass;
+    public static Sprite wine;
 
     public static Sprite player[] = new Sprite[6];
 
@@ -48,6 +49,7 @@ public class Game extends Canvas  implements Runnable{
         addMouseListener(mouse);
         addMouseMotionListener(mouse);
         grass = new Sprite(sheet,1,1);
+        wine= new Sprite(sheet,1,2);
 
         for (int i=0;i<player.length;i++)
         {

@@ -68,8 +68,12 @@ public class Player extends Entity{
             Entity e =handler.entity.get(i);
             if(e.getId()==Id.wine){
                 if(getBounds().intersects(e.getBounds())){
+                    int tpx=getX();
+                    int tpy=getY();
                     width*=2;
                     height*=2;
+                    setX(tpx-width);
+                    setY(tpy-height);
                     e.die();
                 }
             }
