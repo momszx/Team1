@@ -4,7 +4,10 @@ import com.company.entity.Entity;
 import com.company.entity.mob.Player;
 import com.company.graphics.Sprite;
 import com.company.graphics.SpriteSheet;
+import com.company.graphics.gui.Launcher;
+import com.company.graphics.gui.Button;
 import com.company.inputs.KeyInput;
+import com.company.inputs.MouseInput;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -18,7 +21,10 @@ public class Game extends Canvas  implements Runnable{
     public static final String TITTLE="GAME";
     private Thread thread;
     private boolean running = false;
+    public static boolean playing = false;
     public static Handler handler;
+    public static Launcher launcher;
+    public static MouseInput mouse;
 
     public static SpriteSheet sheet;
     public Camera cam;
@@ -36,7 +42,11 @@ public class Game extends Canvas  implements Runnable{
      private void init(){
         handler =new Handler();
         sheet = new SpriteSheet("/SpriteSheet.png");
+        launcher = new Launcher();
+        mouse = new MouseInput();
         addKeyListener(new KeyInput());
+        addMouseListener(mouse);
+        addMouseMotionListener(mouse);
         grass = new Sprite(sheet,1,1);
 
         for (int i=0;i<player.length;i++)
@@ -105,17 +115,18 @@ public class Game extends Canvas  implements Runnable{
         Graphics g = bs.getDrawGraphics();
         g.setColor(Color.MAGENTA);
         g.fillRect(0,0,getWidth(), getHeight());
-        g.translate(cam.getX(),cam.getY());
-        handler.render(g);
+        if (playing) g.translate(cam.getX(),cam.getY());
+        if (playing) handler.render(g);
+        else if (!playing) launcher.render(g);
         g.dispose();
         bs.show();
     }
 
-    public int getFrameWidth(){
+    public static int getFrameWidth(){
         return WIDTH*SCALE;
     }
 
-    public int getFrameHeight(){
+    public static int getFrameHeight(){
         return HEIGHT*SCALE;
     }
 
