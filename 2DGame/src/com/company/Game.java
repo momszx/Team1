@@ -37,6 +37,7 @@ public class Game extends Canvas  implements Runnable{
     public Camera cam;
     public static Sprite grass;
     public static Sprite wine;
+    public static Sprite snake[] = new Sprite[8];
 
     public static Sprite player[] = new Sprite[6];
 
@@ -57,12 +58,18 @@ public class Game extends Canvas  implements Runnable{
         addMouseMotionListener(mouse);
         cam =new Camera();
         grass = new Sprite(sheet,1,1);
-        wine= new Sprite(sheet,1,2);
+        wine= new Sprite(sheet,2,1);
+
 
         for (int i=0;i<player.length;i++)
         {
            player[i] = new Sprite(sheet, i+1, 16);
         }
+
+         for (int i=0;i<snake.length;i++)
+         {
+             snake[i] = new Sprite(sheet, i+1, 15);
+         }
 
          try {
              image = ImageIO.read(getClass().getResource("/level.png"));

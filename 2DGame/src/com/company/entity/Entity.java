@@ -11,6 +11,9 @@ public abstract class Entity {
     public int width, height;
     public int facing = 0;
 
+    public int frame = 0;
+    public int frameDelay = 0; //update idő a frame váltások közt
+
     public boolean solid;
     public boolean jumping = false;
     public boolean falling = true;

@@ -10,11 +10,6 @@ import java.awt.*;
 
 public class Player extends Entity {
 
-    private int frame = 0;
-    private int frameDelay = 0; //update idő a frame váltások közt
-
-    private boolean animate = false;
-
     public Player(int x, int y, int width, int height, boolean solid, Id id, Handler handler) {
         super(x, y, width, height, solid, id, handler);
     }
@@ -32,12 +27,6 @@ public class Player extends Entity {
         x+=velX;
         y+=velY;
 
-        if(y+height>=771) {
-            y =771-height; //Jobb oldalt leesés
-        }
-
-        if (velX!=0) animate = true;
-        else animate = false;
 
         for(Tile t:handler.tile){
             if(!t.solid) break;
@@ -73,9 +62,17 @@ public class Player extends Entity {
             Entity e =handler.entity.get(i);
             if(e.getId()==Id.wine){
                 if(getBounds().intersects(e.getBounds())){
-                    width*=2;
-                    height*=2;
+                    int tpX = getX();
+                    int tpY = getY();
+                    width*=1.5;
+                    height*=1.5;
+                    setX(tpX-width);
+                    setY(tpY-height);
                     e.die();
+                }
+            } else if(e.getId()==Id.snake) {
+                if(getBounds().intersects(e.getBounds())) {
+                    die();
                 }
             }
         }
@@ -92,7 +89,7 @@ public class Player extends Entity {
             setVelY((int)gravity);
         }
 
-        if(animate){
+        if(velX!=0){
             frameDelay ++;
             if (frameDelay>=3) {
                 frame++;

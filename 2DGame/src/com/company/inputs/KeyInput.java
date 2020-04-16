@@ -20,9 +20,11 @@ public class KeyInput implements KeyListener {
             if (en.getId() == Id.player) {
                 switch (key) {
                     case KeyEvent.VK_W:
-                        if (!en.jumping) en.jumping = true;
+                        if (!en.jumping) {
+                            en.jumping = true;
+                            en.gravity = 10.0;
+                        }
                         break;
-                    
                     case KeyEvent.VK_A:
                         en.setVelX(-5);
                         en.facing = 0;
@@ -43,10 +45,7 @@ public class KeyInput implements KeyListener {
                 if (en.getId() == Id.player) {
                     switch (keya) {
                         case KeyEvent.VK_W:
-                            if (!en.jumping) {
-                                en.jumping = true;
-                                en.gravity = 10.0;
-                            }
+                            en.setVelY(0);
                             break;
                         case KeyEvent.VK_A:
                             en.setVelX(0);
