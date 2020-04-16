@@ -71,7 +71,10 @@ public class Player extends Entity {
                     e.die();
                 }
             } else if(e.getId()==Id.snake) {
-                if(getBounds().intersects(e.getBounds())) {
+                if(getBoundsBottom().intersects(e.getBoundsTop())){
+                    e.die();
+                }
+                else if(getBounds().intersects(e.getBounds())) {
                     die();
                 }
             }

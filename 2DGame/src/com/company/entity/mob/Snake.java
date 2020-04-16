@@ -7,11 +7,27 @@ import com.company.entity.Entity;
 import com.company.tile.Tile;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Snake extends Entity {
 
+    private Random rnd =new Random();
+
     public Snake(int x, int y, int width, int height, boolean solid, Id id, Handler handler) {
         super(x, y, width, height, solid, id, handler);
+
+        int dir =rnd.nextInt(2);
+
+        switch (dir){
+            case 0:
+                setVelX(-2);
+                facing = 0;
+                break;
+            case 1:
+                setVelX(2);
+                facing = 1;
+                break;
+        }
     }
 
     public void render(Graphics g){
@@ -39,9 +55,11 @@ public class Snake extends Entity {
                 }
                 if(getBoundsLeft().intersects(t.getBounds())){
                     setVelX(2);
+                    facing = 1;
                 }
                 if(getBoundsRight().intersects(t.getBounds())){
                     setVelX(-2);
+                    facing = 0;
                 }
             }
         }
