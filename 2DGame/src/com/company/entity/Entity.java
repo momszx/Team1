@@ -15,7 +15,6 @@ public abstract class Entity {
     public int frame = 0;
     public int frameDelay = 0; //update idő a frame váltások közt
 
-    public boolean solid;
     public boolean jumping = false;
     public boolean falling = true;
     public double gravity = 0.0;
@@ -26,12 +25,11 @@ public abstract class Entity {
     public Id id;
     public Handler handler;
 
-    public Entity(int x, int y, int width, int height, boolean solid, Id id,Handler handler){
+    public Entity(int x, int y, int width, int height, Id id,Handler handler){
         this.setX(x);
         this.setY(y);
         this.width=width;
         this.height=height;
-        this.solid=solid;
         this.id=id;
         this.handler=handler;
     }
@@ -60,10 +58,6 @@ public abstract class Entity {
 
     public void setY(int y) {
         this.y = y;
-    }
-
-    public boolean isSolid() {
-        return solid;
     }
 
     public void setVelX(int velX) {

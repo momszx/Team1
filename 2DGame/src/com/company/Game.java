@@ -42,6 +42,10 @@ public class Game extends Canvas  implements Runnable{
     public static SpriteSheet sheet;
     public Camera cam;
     public static Sprite grass;
+
+    public static Sprite powerUp;
+    public static Sprite usedPowerUp;
+
     public static Sprite wine;
     public static Sprite coin;
     public static Sprite snake[] = new Sprite[8];
@@ -65,6 +69,10 @@ public class Game extends Canvas  implements Runnable{
         addMouseMotionListener(mouse);
         cam =new Camera();
         grass = new Sprite(sheet,1,1);
+
+        powerUp=new Sprite(sheet, 3, 1);
+        usedPowerUp = new Sprite(sheet, 4,1);
+
         wine= new Sprite(sheet,2,1);
         coin=new Sprite(sheet,5,1);
 

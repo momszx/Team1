@@ -13,8 +13,8 @@ public class Wine extends Entity {
 
     private Random rnd =new Random();
 
-    public Wine(int x, int y, int width, int height, boolean solid, Id id, Handler handler) {
-        super(x, y, width, height, solid, id, handler);
+    public Wine(int x, int y, int width, int height, Id id, Handler handler) {
+        super(x, y, width, height, id, handler);
 
         int dir =rnd.nextInt(2);
 

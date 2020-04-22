@@ -10,8 +10,8 @@ import java.awt.*;
 
 public class Player extends Entity {
 
-    public Player(int x, int y, int width, int height, boolean solid, Id id, Handler handler) {
-        super(x, y, width, height, solid, id, handler);
+    public Player(int x, int y, int width, int height, Id id, Handler handler) {
+        super(x, y, width, height, id, handler);
     }
 
     public void render(Graphics g) {
@@ -28,15 +28,20 @@ public class Player extends Entity {
         y+=velY;
         for(Tile t:handler.tile){
             if(!t.solid) break;
-            if(t.getId()==Id.wall){
-                if(getBoundsTop().intersects(t.getBounds())&&t.getId()!=Id.coin) {
+            if(t.getId()==Id.wall) {
+                if (getBoundsTop().intersects(t.getBounds()) && t.getId() != Id.coin) {
                     setVelY(0);
-                    if(jumping){
+                    if (jumping) {
                         jumping = false;
                         gravity = 0.0;
                         falling = true;
                     }
                 }
+            }
+            if(t.getId()==Id.powerUp){
+                if(getBoundsTop().intersects(t.getBounds())) t.activated=true;
+            }
+
                 if(getBoundsBottom().intersects(t.getBounds())&&t.getId()!=Id.coin) {
                     setVelY(0);
                     if(falling) falling = false;
@@ -59,7 +64,7 @@ public class Player extends Entity {
                     t.die();
                 }
             }
-        }
+
         for (int i=0;i<handler.entity.size();i++){
             Entity e =handler.entity.get(i);
             if(e.getId()==Id.wine){
