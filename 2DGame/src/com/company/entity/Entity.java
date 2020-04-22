@@ -1,5 +1,6 @@
 package com.company.entity;
 
+import com.company.Game;
 import com.company.Handler;
 import com.company.Id;
 
@@ -41,6 +42,8 @@ public abstract class Entity {
 
     public void die(){
         handler.removeEntity(this);
+        Game.lives--;
+        Game.showDeathScreen=true;
     }
 
     public int getX() {

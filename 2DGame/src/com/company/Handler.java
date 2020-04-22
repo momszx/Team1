@@ -69,4 +69,8 @@ public class Handler {
             }
         }
     }
+    public  void  clearLevel(){
+        entity.clear();
+        tile.clear();
+    }
 }

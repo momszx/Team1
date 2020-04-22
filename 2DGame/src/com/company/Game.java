@@ -28,6 +28,10 @@ public class Game extends Canvas  implements Runnable{
     private BufferedImage image;
 
     public static int coins =0;
+    public static int lives =5;
+    public static int deathScreenTime =0;
+
+    public static boolean showDeathScreen =true;
 
     public static boolean playing = false;
 
@@ -80,8 +84,6 @@ public class Game extends Canvas  implements Runnable{
          } catch (IOException e) {
              e.printStackTrace();
          }
-         handler.createLevel(image);
-
      }
 
     private synchronized void start(){
@@ -141,11 +143,20 @@ public class Game extends Canvas  implements Runnable{
         Graphics g = bs.getDrawGraphics();
         g.setColor(Color.MAGENTA);
         g.fillRect(0,0,getWidth(), getHeight());
-        g.drawImage(Game.coin.getBufferedImage(),20,20,75,75,null);
-        g.setFont(new Font("Courier",Font.BOLD,20));
-        g.drawString("x"+coin,100,95);
+        if (!showDeathScreen) {
+            g.drawImage(Game.coin.getBufferedImage(),20,20,75,75,null);
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Courier",Font.BOLD,20));
+            g.drawString("x"+coin,100,95);
+        }
+        if(showDeathScreen){
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Dourier",Font.BOLD,50));
+            g.drawImage(Game.player[0].getBufferedImage(),500,300,100,100,null);
+            g.drawString("x"+lives,610,380);
+        }
         if (playing) g.translate(cam.getX(),cam.getY());
-        if (playing) handler.render(g);
+        if (playing&&!showDeathScreen) handler.render(g);
         else if (!playing) launcher.render(g);
         g.dispose();
         bs.show();
@@ -165,6 +176,13 @@ public class Game extends Canvas  implements Runnable{
             if (e.getId()==Id.player){
                 cam.tick(e);
             }
+        }
+        if(showDeathScreen) deathScreenTime++;
+        if(deathScreenTime>=180){
+            showDeathScreen =false;
+            deathScreenTime =0;
+            handler.clearLevel();
+            handler.createLevel(image);
         }
     }
 
