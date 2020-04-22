@@ -27,6 +27,8 @@ public class Game extends Canvas  implements Runnable{
 
     private BufferedImage image;
 
+    public static int coins =0;
+
     public static boolean playing = false;
 
     public static Handler handler;
@@ -37,6 +39,7 @@ public class Game extends Canvas  implements Runnable{
     public Camera cam;
     public static Sprite grass;
     public static Sprite wine;
+    public static Sprite coin;
     public static Sprite snake[] = new Sprite[8];
 
     public static Sprite player[] = new Sprite[6];
@@ -59,6 +62,7 @@ public class Game extends Canvas  implements Runnable{
         cam =new Camera();
         grass = new Sprite(sheet,1,1);
         wine= new Sprite(sheet,2,1);
+        coin=new Sprite(sheet,5,1);
 
 
         for (int i=0;i<player.length;i++)
@@ -137,6 +141,9 @@ public class Game extends Canvas  implements Runnable{
         Graphics g = bs.getDrawGraphics();
         g.setColor(Color.MAGENTA);
         g.fillRect(0,0,getWidth(), getHeight());
+        g.drawImage(Game.coin.getBufferedImage(),20,20,75,75,null);
+        g.setFont(new Font("Courier",Font.BOLD,20));
+        g.drawString("x"+coin,100,95);
         if (playing) g.translate(cam.getX(),cam.getY());
         if (playing) handler.render(g);
         else if (!playing) launcher.render(g);

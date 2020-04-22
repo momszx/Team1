@@ -1,5 +1,6 @@
 package com.company.entity;
 
+import com.company.Game;
 import com.company.Handler;
 import com.company.Id;
 import com.company.tile.Tile;
@@ -26,7 +27,7 @@ public class Player extends Entity{
         for(Tile t:handler.tile){
             if(!t.solid) break;
             if(t.getId()==Id.wall){
-                if(getBoundsTop().intersects(t.getBounds())) {
+                if(getBoundsTop().intersects(t.getBounds())&&t.getId()!=Id.coin) {
                     setVelY(0);
                     if(jumping){
                         jumping = false;
@@ -34,7 +35,7 @@ public class Player extends Entity{
                         falling = true;
                     }
                 }
-                if(getBoundsBottom().intersects(t.getBounds())) {
+                if(getBoundsBottom().intersects(t.getBounds())&&t.getId()!=Id.coin) {
                     setVelY(0);
                     if(falling) falling = false;
                 }else {
@@ -43,13 +44,17 @@ public class Player extends Entity{
                         falling = true;
                     }
                 }
-                if(getBoundsLeft().intersects(t.getBounds())) {
+                if(getBoundsLeft().intersects(t.getBounds())&&t.getId()!=Id.coin) {
                     setVelX(0);
                     x = t.getX()+t.width;
                 }
-                if(getBoundsRight().intersects(t.getBounds())) {
+                if(getBoundsRight().intersects(t.getBounds())&&t.getId()!=Id.coin) {
                     setVelX(0);
                     x = t.getX()-t.width;
+                }
+                if(getBounds().intersects(t.getBounds())&&t.getId()==Id.coin){
+                    Game.coins++;
+                    t.die();
                 }
             }
         }
