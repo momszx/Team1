@@ -32,6 +32,7 @@ public class Game extends Canvas  implements Runnable{
     public static int deathScreenTime =0;
 
     public static boolean showDeathScreen =true;
+    public static boolean gameOver=false;
 
     public static boolean playing = false;
 
@@ -150,10 +151,16 @@ public class Game extends Canvas  implements Runnable{
             g.drawString("x"+coin,100,95);
         }
         if(showDeathScreen){
-            g.setColor(Color.WHITE);
-            g.setFont(new Font("Dourier",Font.BOLD,50));
-            g.drawImage(Game.player[0].getBufferedImage(),500,300,100,100,null);
-            g.drawString("x"+lives,610,380);
+            if (!gameOver){
+                g.setColor(Color.WHITE);
+                g.setFont(new Font("Courier",Font.BOLD,50));
+                g.drawImage(Game.player[0].getBufferedImage(),500,300,100,100,null);
+                g.drawString("x"+lives,300,400);
+            }else {
+                g.setColor(Color.WHITE);
+                g.setFont(new Font("Courier",Font.BOLD,50));
+                g.drawString("Game Over",610,400);
+            }
         }
         if (playing) g.translate(cam.getX(),cam.getY());
         if (playing&&!showDeathScreen) handler.render(g);
@@ -177,7 +184,7 @@ public class Game extends Canvas  implements Runnable{
                 cam.tick(e);
             }
         }
-        if(showDeathScreen) deathScreenTime++;
+        if(showDeathScreen&&!gameOver) deathScreenTime++;
         if(deathScreenTime>=180){
             showDeathScreen =false;
             deathScreenTime =0;
