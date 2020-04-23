@@ -11,7 +11,8 @@ public class Coin extends Tile {
         super(x, y, width, height, solid, id, handler);
     }
 
-    public void render(Graphics g) {
+    public void render(Graphics g)
+    {
         g.drawImage(Game.coin.getBufferedImage(),x,y,width,height,null);
     }
 

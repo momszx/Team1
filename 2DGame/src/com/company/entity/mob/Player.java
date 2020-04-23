@@ -26,7 +26,9 @@ public class Player extends Entity {
     public void tick() {
         x+=velX;
         y+=velY;
-        for(Tile t:handler.tile){
+        //for(Tile t:handler.tile){
+        for (int i=0;i<handler.tile.size();i++){
+            Tile t =handler.tile.get(i);
             if(!t.solid) break;
             if(t.getId()==Id.wall) {
                 if (getBoundsTop().intersects(t.getBounds()) && t.getId() != Id.coin) {
@@ -71,8 +73,8 @@ public class Player extends Entity {
                 if(getBounds().intersects(e.getBounds())){
                     int tpX = getX();
                     int tpY = getY();
-                    width*=1.5;
-                    height*=1.5;
+                    width*=2;
+                    height*=2;
                     setX(tpX-width);
                     setY(tpY-height);
                     e.die();
@@ -82,7 +84,7 @@ public class Player extends Entity {
                     e.die();
                 }
                 else if(getBounds().intersects(e.getBounds())) {
-                    die();
+                    diePlayer();
                 }
             }
         }

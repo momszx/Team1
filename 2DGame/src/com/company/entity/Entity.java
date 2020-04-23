@@ -40,6 +40,18 @@ public abstract class Entity {
 
     public void die(){
         handler.removeEntity(this);
+        /*
+
+        Game.lives--;
+        Game.showDeathScreen=true;
+        if (Game.lives<=0){
+            Game.gameOver=true;
+        }
+
+         */
+    }
+    public  void diePlayer(){
+        handler.removeEntity(this);
         Game.lives--;
         Game.showDeathScreen=true;
         if (Game.lives<=0){
