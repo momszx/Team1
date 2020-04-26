@@ -4,14 +4,18 @@ import com.company.Game;
 import com.company.Handler;
 import com.company.Id;
 import com.company.entity.Entity;
+import com.company.state.PlayerState;
 import com.company.tile.Tile;
 
 import java.awt.*;
 
 public class Player extends Entity {
 
+    private PlayerState state;
+
     public Player(int x, int y, int width, int height, Id id, Handler handler) {
         super(x, y, width, height, id, handler);
+        state = PlayerState.SMALL;
     }
 
     public void render(Graphics g) {
@@ -73,10 +77,11 @@ public class Player extends Entity {
                 if(getBounds().intersects(e.getBounds())){
                     int tpX = getX();
                     int tpY = getY();
-                    width*=2;
-                    height*=2;
+                    width*=1.5;
+                    height*=1.5;
                     setX(tpX-width);
                     setY(tpY-height);
+                    if(state == PlayerState.SMALL) state = PlayerState.BIG;
                     e.die();
                 }
             } else if(e.getId()==Id.snake) {
@@ -84,7 +89,15 @@ public class Player extends Entity {
                     e.die();
                 }
                 else if(getBounds().intersects(e.getBounds())) {
-                    diePlayer();
+                    if (state == PlayerState.BIG) {
+                        state = PlayerState.SMALL;
+                        width /= 1.5;
+                        height /=1.5;
+                        x+= width;
+                        y+=height;
+                    } else if (state == PlayerState.SMALL) {
+                        e.diePlayer();
+                    }
                 }
             }
         }
