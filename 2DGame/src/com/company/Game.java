@@ -12,6 +12,7 @@ import com.company.inputs.MouseInput;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -155,8 +156,8 @@ public class Game extends Canvas  implements Runnable{
         if (!showDeathScreen) {
             g.drawImage(Game.coin.getBufferedImage(),20,20,75,75,null);
             g.setColor(Color.WHITE);
-            g.setFont(new Font("Courier",Font.BOLD,20));
-            g.drawString("x"+coin,100,95);
+            g.setFont(new Font("RetroGame",Font.BOLD,32));
+            g.drawString("x"+coins,100,95);
         }
         if(showDeathScreen){
             if (!gameOver){
