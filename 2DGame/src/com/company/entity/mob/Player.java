@@ -74,16 +74,27 @@ public class Player extends Entity {
         for (int i=0;i<handler.entity.size();i++){
             Entity e =handler.entity.get(i);
             if(e.getId()==Id.wine){
-                if(getBounds().intersects(e.getBounds())){
-                    int tpX = getX();
-                    int tpY = getY();
-                    width*=1.5;
-                    height*=1.5;
-                    setX(tpX-width);
-                    setY(tpY-height);
-                    if(state == PlayerState.SMALL) state = PlayerState.BIG;
-                    e.die();
+                switch (e.getType()){
+                    case 0:
+                        if(getBounds().intersects(e.getBounds())){
+                            int tpX = getX();
+                            int tpY = getY();
+                            width*=1.5;
+                            height*=1.5;
+                            setX(tpX-width);
+                            setY(tpY-height);
+                            if(state == PlayerState.SMALL) state = PlayerState.BIG;
+                            e.die();
+                        }
+                        break;
+                    case 1:
+                        if(getBounds().intersects(e.getBounds())){
+                            Game.lives++;
+                            e.die();
+                        }
+                        break;
                 }
+
             } else if(e.getId()==Id.snake) {
                 if(getBoundsBottom().intersects(e.getBoundsTop())){
                     e.die();

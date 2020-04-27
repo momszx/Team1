@@ -46,6 +46,7 @@ public class Game extends Canvas  implements Runnable{
     public static Sprite grass;
 
     public static Sprite powerUp;
+    public static Sprite lifeWine;
     public static Sprite usedPowerUp;
 
     public static Sprite wine;
@@ -73,6 +74,7 @@ public class Game extends Canvas  implements Runnable{
         grass = new Sprite(sheet,1,1);
 
         powerUp=new Sprite(sheet, 3, 1);
+        lifeWine= new Sprite(sheet,6,1);
         usedPowerUp = new Sprite(sheet, 4,1);
 
         wine= new Sprite(sheet,2,1);
@@ -193,12 +195,20 @@ public class Game extends Canvas  implements Runnable{
                 cam.tick(e);
             }
         }
-        if(showDeathScreen&&!gameOver) deathScreenTime++;
+        if(showDeathScreen&&!gameOver&&playing) deathScreenTime++;
         if(deathScreenTime>=180){
-            showDeathScreen =false;
-            deathScreenTime =0;
-            handler.clearLevel();
-            handler.createLevel(image);
+            if (!gameOver){
+                showDeathScreen =false;
+                deathScreenTime =0;
+                handler.clearLevel();
+                handler.createLevel(image);
+            }
+            else if(gameOver){
+                showDeathScreen =false;
+                deathScreenTime =0;
+                playing=false;
+                gameOver=false;
+            }
         }
     }
 

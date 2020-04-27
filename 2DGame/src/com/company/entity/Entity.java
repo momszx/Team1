@@ -15,6 +15,11 @@ public abstract class Entity {
     public int frame = 0;
     public int frameDelay = 0; //update idő a frame váltások közt
 
+    public int type;
+    public int getType() {
+        return type;
+    }
+
     public boolean jumping = false;
     public boolean falling = true;
     public double gravity = 0.0;

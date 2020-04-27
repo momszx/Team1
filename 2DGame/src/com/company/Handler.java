@@ -64,9 +64,9 @@ public class Handler {
 
                 if(red == 0 && green == 0 && blue == 0) addTile(new Wall(x*64,y*64, 64,64,true, Id.wall, this));
                 if (red == 0 && green == 0 && blue == 255) addEntity(new Player(x*64, y*64, 64, 64, Id.player, this));
-                if (red == 255 && green == 0 && blue == 0) addEntity(new Wine(x*64,y*64, 64,64, Id.wine, this));
+                if (red == 255 && green == 0 && blue == 0) addEntity(new Wine(x*64,y*64, 64,64, Id.wine, this,0));
                 if (red == 0 && green == 255 && blue == 0) addEntity(new Snake(x*64,y*64, 64,64, Id.snake, this));
-                if (red == 0 && green == 240 && blue == 255) addTile(new PowerUpBlock(x*64,y*64,64,64,true,Id.powerUp,this, Game.powerUp));
+                if (red == 0 && green == 240 && blue == 255) addTile(new PowerUpBlock(x*64,y*64,64,64,true,Id.powerUp,this, Game.lifeWine,1));
                 if(red==255&&green==255&&blue==0) addTile(new Coin(x*64,y*64,64,64,true,Id.coin,this));
             }
         }
