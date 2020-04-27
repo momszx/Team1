@@ -104,8 +104,7 @@ public class Player extends Entity {
                         state = PlayerState.SMALL;
                         width /= 1.5;
                         height /=1.5;
-                        x+= width;
-                        y+=height;
+                        y-=100;
                     } else if (state == PlayerState.SMALL) {
                         e.diePlayer();
                     }
