@@ -188,6 +188,14 @@ public class Game extends Canvas  implements Runnable{
         return HEIGHT*SCALE;
     }
 
+    public static Rectangle getVisibleArea(){
+        for (int i =0;i<handler.entity.size();i++){
+            Entity e = handler.entity.get(i);
+            if(e.getId()==Id.player) return new Rectangle(e.getX()-(getFrameWidth()/2-5),e.getY()-(getFrameHeight()/2-5),getFrameWidth()+10,getFrameHeight()+10);
+        }
+        return null;
+    }
+
     public void tick(){
         handler.tick();
         for(Entity e:handler.entity){

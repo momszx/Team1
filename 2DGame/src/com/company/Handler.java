@@ -20,21 +20,21 @@ public class Handler {
     public void  render(Graphics g){
         for(int i=0; i < entity.size(); i++){
             Entity e = entity.get(i);
-            e.render(g);
+            if(Game.getVisibleArea()!=null && e.getBounds().intersects(Game.getVisibleArea())) e.render(g);
         }
         for(int i=0; i < tile.size(); i++){
             Tile t = tile.get(i);
-            t.render(g);
+            if(Game.getVisibleArea()!=null && t.getBounds().intersects(Game.getVisibleArea())) t.render(g);
         }
     }
     public void tick(){
         for(int i=0; i < entity.size(); i++){
             Entity e = entity.get(i);
-            e.tick();
+            if(Game.getVisibleArea()!=null && e.getBounds().intersects(Game.getVisibleArea())) e.tick();
         }
         for(int i=0; i < tile.size(); i++){
             Tile t = tile.get(i);
-            t.tick();
+            if(Game.getVisibleArea()!=null && t.getBounds().intersects(Game.getVisibleArea())) t.tick();
         }
     }
     public void  addEntity (Entity en){
