@@ -3,8 +3,9 @@ package com.company;
 import com.company.entity.Entity;
 import com.company.entity.mob.Player;
 import com.company.entity.mob.Snake;
+import com.company.entity.mob.TowerBoss;
 import com.company.powerup.Wine;
-import com.company.tile.Coin;
+import com.company.entity.mob.Coin;
 import com.company.tile.PowerUpBlock;
 import com.company.tile.Tile;
 import com.company.tile.Wall;
@@ -66,8 +67,9 @@ public class Handler {
                 if (red == 0 && green == 0 && blue == 255) addEntity(new Player(x*64, y*64, 64, 64, Id.player, this));
                 if (red == 255 && green == 0 && blue == 0) addEntity(new Wine(x*64,y*64, 64,64, Id.wine, this,0));
                 if (red == 0 && green == 255 && blue == 0) addEntity(new Snake(x*64,y*64, 64,64, Id.snake, this));
+                if (red == 255 && green == 100 && blue == 50) addEntity(new TowerBoss(x*64,y*64, 64,64, Id.towerBoss, this,3));
                 if (red == 0 && green == 240 && blue == 255) addTile(new PowerUpBlock(x*64,y*64,64,64,true,Id.powerUp,this, Game.lifeWine,1));
-                if(red==255&&green==255&&blue==0) addTile(new Coin(x*64,y*64,64,64,true,Id.coin,this));
+                if(red==255&&green==255&&blue==0) addEntity(new Coin(x*64,y*64,64,64,Id.coin,this));
             }
         }
     }

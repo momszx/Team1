@@ -4,6 +4,7 @@ import com.company.Game;
 import com.company.Handler;
 import com.company.Id;
 import com.company.entity.Entity;
+import com.company.state.BossState;
 import com.company.state.PlayerState;
 import com.company.tile.Tile;
 
@@ -35,7 +36,7 @@ public class Player extends Entity {
             Tile t =handler.tile.get(i);
             if(!t.solid) break;
             if(t.getId()==Id.wall) {
-                if (getBoundsTop().intersects(t.getBounds()) && t.getId() != Id.coin) {
+                if (getBoundsTop().intersects(t.getBounds())) {
                     setVelY(0);
                     if (jumping) {
                         jumping = false;
@@ -48,7 +49,7 @@ public class Player extends Entity {
                 if(getBoundsTop().intersects(t.getBounds())) t.activated=true;
             }
 
-                if(getBoundsBottom().intersects(t.getBounds())&&t.getId()!=Id.coin) {
+                if(getBoundsBottom().intersects(t.getBounds())) {
                     setVelY(0);
                     if(falling) falling = false;
                 }else {
@@ -57,17 +58,13 @@ public class Player extends Entity {
                         falling = true;
                     }
                 }
-                if(getBoundsLeft().intersects(t.getBounds())&&t.getId()!=Id.coin) {
+                if(getBoundsLeft().intersects(t.getBounds())) {
                     setVelX(0);
                     x = t.getX()+t.width;
                 }
-                if(getBoundsRight().intersects(t.getBounds())&&t.getId()!=Id.coin) {
+                if(getBoundsRight().intersects(t.getBounds())) {
                     setVelX(0);
                     x = t.getX()-t.width;
-                }
-                if(getBounds().intersects(t.getBounds())&&t.getId()==Id.coin){
-                    Game.coins++;
-                    t.die();
                 }
             }
 
@@ -95,9 +92,21 @@ public class Player extends Entity {
                         break;
                 }
 
-            } else if(e.getId()==Id.snake) {
+            } else if(e.getId()==Id.snake || e.getId()==Id.towerBoss) {
                 if(getBoundsBottom().intersects(e.getBoundsTop())){
-                    e.die();
+                    if (e.getId()!=Id.towerBoss) e.die();
+                    else if(e.attackable){
+                        e.hp--;
+                        e.falling=true;
+                        e.gravity=3.0;
+                        e.bossState= BossState.RECOVERING;
+                        e.attackable=false;
+                        e.phaseTime=0;
+
+                        jumping=true;
+                        falling=false;
+                        gravity=3.5;
+                    }
                 }
                 else if(getBounds().intersects(e.getBounds())) {
                     if (state == PlayerState.BIG) {
@@ -108,6 +117,12 @@ public class Player extends Entity {
                     } else if (state == PlayerState.SMALL) {
                         e.diePlayer();
                     }
+                }
+            }
+            else if(e.getId()==Id.coin){
+                if(getBounds().intersects(e.getBounds())&&e.getId()==Id.coin){
+                    Game.coins++;
+                    e.die();
                 }
             }
         }
