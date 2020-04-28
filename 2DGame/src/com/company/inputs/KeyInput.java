@@ -23,7 +23,7 @@ public class KeyInput implements KeyListener {
                         if (!en.jumping && en.gravity==0.2) {
                             en.jumping = true;
                             en.gravity = 10.0;
-
+                            Game.jump.play();
                         }
                         break;
                     case KeyEvent.VK_A:

@@ -59,7 +59,10 @@ public abstract class Entity {
         }
     }
 
-    public void diePlayer(){
+         */
+    }
+    public  void diePlayer(){
+        Game.themesong.stop();
         handler.removeEntity(this);
         Game.lives--;
         Game.showDeathScreen=true;
