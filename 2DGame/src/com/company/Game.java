@@ -53,6 +53,11 @@ public class Game extends Canvas  implements Runnable{
 
     public static Sprite player[] = new Sprite[6];
 
+    public static Sound jump;
+    public static Sound levelcomplet;
+    public static Sound loasealife;
+    public static Sound themesong;
+
     public Game(){
     Dimension size = new Dimension(WIDTH*SCALE,HEIGHT*SCALE);
     setPreferredSize(size);
@@ -93,6 +98,10 @@ public class Game extends Canvas  implements Runnable{
          } catch (IOException e) {
              e.printStackTrace();
          }
+         jump =new Sound("/jump.mp3");
+         levelcomplet =new Sound("/levelComplete.mp3");
+         loasealife =new Sound("/lifeLose.wav");
+         themesong =new Sound("/themesong.wav");
      }
 
     private synchronized void start(){
@@ -198,6 +207,7 @@ public class Game extends Canvas  implements Runnable{
             deathScreenTime =0;
             handler.clearLevel();
             handler.createLevel(image);
+            themesong.play();
         }
     }
 

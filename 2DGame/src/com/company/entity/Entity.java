@@ -51,12 +51,14 @@ public abstract class Entity {
          */
     }
     public  void diePlayer(){
+        Game.themesong.stop();
         handler.removeEntity(this);
         Game.lives--;
         Game.showDeathScreen=true;
         if (Game.lives<=0){
             Game.gameOver=true;
         }
+        Game.loasealife.play();
     }
 
     public int getX() {
