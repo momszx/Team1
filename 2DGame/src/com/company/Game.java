@@ -51,6 +51,7 @@ public class Game extends Canvas  implements Runnable{
 
     public static Sprite wine;
     public static Sprite coin;
+    public static Sprite turtle;
     public static Sprite snake[] = new Sprite[8];
     public static Sprite towerBoss[] = new Sprite[10];
 
@@ -85,6 +86,8 @@ public class Game extends Canvas  implements Runnable{
 
         wine= new Sprite(sheet,2,1);
         coin=new Sprite(sheet,5,1);
+        turtle = new Sprite(sheet,1,13);
+
 
 
         for (int i=0;i<player.length;i++)
@@ -103,7 +106,7 @@ public class Game extends Canvas  implements Runnable{
          }
 
          try {
-             image = ImageIO.read(getClass().getResource("/boss.png"));
+             image = ImageIO.read(getClass().getResource("/level.png"));
          } catch (IOException e) {
              e.printStackTrace();
          }
