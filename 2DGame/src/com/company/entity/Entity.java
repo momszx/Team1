@@ -3,7 +3,9 @@ package com.company.entity;
 import com.company.Game;
 import com.company.Handler;
 import com.company.Id;
+import com.company.entity.mob.Turtle;
 import com.company.state.BossState;
+import com.company.state.TurtleState;
 
 import java.awt.*;
 
@@ -33,6 +35,7 @@ public abstract class Entity {
 
     public Id id;
     public BossState bossState;
+    public TurtleState turtleState;
     public Handler handler;
 
     public Entity(int x, int y, int width, int height, Id id,Handler handler){
@@ -51,23 +54,15 @@ public abstract class Entity {
     public void die(){
         handler.removeEntity(this);
         if (getId()==Id.player){
+            Game.themesong.stop();
             Game.lives--;
             Game.showDeathScreen=true;
             if (Game.lives<=0){
                 Game.gameOver=true;
             }
+            Game.loasealife.play();
         }
-    }
 
-    public  void diePlayer(){
-        Game.themesong.stop();
-        handler.removeEntity(this);
-        Game.lives--;
-        Game.showDeathScreen=true;
-        if (Game.lives<=0){
-            Game.gameOver=true;
-        }
-        Game.loasealife.play();
     }
 
     public int getX() {

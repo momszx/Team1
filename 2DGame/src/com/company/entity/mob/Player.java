@@ -6,11 +6,15 @@ import com.company.Id;
 import com.company.entity.Entity;
 import com.company.state.BossState;
 import com.company.state.PlayerState;
+import com.company.state.TurtleState;
 import com.company.tile.Tile;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Player extends Entity {
+
+    private Random rnd = new Random();
 
     private PlayerState state;
 
@@ -115,7 +119,7 @@ public class Player extends Entity {
                         height /=1.5;
                         y-=100;
                     } else if (state == PlayerState.SMALL) {
-                        e.diePlayer();
+                        die();
                     }
                 }
             }
@@ -123,6 +127,56 @@ public class Player extends Entity {
                 if(getBounds().intersects(e.getBounds())&&e.getId()==Id.coin){
                     Game.coins++;
                     e.die();
+                }
+            }
+            else if(e.getId()==Id.turtle){
+                if (e.turtleState== TurtleState.WALKING){
+                    if (getBoundsBottom().intersects(e.getBoundsTop())){
+                        e.turtleState=TurtleState.SHELL;
+                        jumping=true;
+                        falling=false;
+                        gravity=5;
+                    }
+                    else if(getBounds().intersects(e.getBounds())) die();
+                }
+                else if(e.turtleState==TurtleState.SHELL){
+                    if (getBoundsBottom().intersects(e.getBoundsTop())){
+
+                        int dir = rnd.nextInt(2);
+                        switch (dir){
+                            case 0:
+                                e.setVelX(-10);
+                                facing = 0;
+                                break;
+                            case 1:
+                                e.setVelX(10);
+                                facing = 1;
+                                break;
+                        }
+
+                        e.turtleState=TurtleState.SPINNING;
+                        jumping=true;
+                        falling=false;
+                        gravity=3.5;
+                    }
+
+                    if (getBoundsLeft().intersects(e.getBoundsRight())){
+                        e.setVelX(-10);
+                        e.turtleState=TurtleState.SPINNING;
+                    }
+                    if (getBoundsRight().intersects(e.getBoundsLeft())){
+                        e.setVelX(10);
+                        e.turtleState=TurtleState.SPINNING;
+                    }
+                }
+                else if(e.turtleState==TurtleState.SPINNING){
+                    if (getBoundsBottom().intersects(e.getBoundsTop())){
+                        e.turtleState=TurtleState.SHELL;
+                        jumping=true;
+                        falling=false;
+                        gravity=3.5;
+                    }
+                    else if(getBounds().intersects(e.getBounds())) die();
                 }
             }
         }
