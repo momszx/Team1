@@ -13,8 +13,9 @@ public class Wine extends Entity {
 
     private Random rnd =new Random();
 
-    public Wine(int x, int y, int width, int height, Id id, Handler handler) {
+    public Wine(int x, int y, int width, int height, Id id, Handler handler, int type) {
         super(x, y, width, height, id, handler);
+        this.type = type;
 
         int dir =rnd.nextInt(2);
 
@@ -29,7 +30,15 @@ public class Wine extends Entity {
     }
 
     public void render(Graphics g) {
-        g.drawImage(Game.wine.getBufferedImage(),x,y,width,height,null);
+        switch (getType()){
+            case 0:
+                g.drawImage(Game.wine.getBufferedImage(),x,y,width,height,null);
+                break;
+            case 1:
+                g.drawImage(Game.lifeWine.getBufferedImage(),x,y,width,height,null);
+                break;
+        }
+
     }
 
     public void tick() {

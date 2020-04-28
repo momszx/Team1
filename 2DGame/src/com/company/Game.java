@@ -12,6 +12,7 @@ import com.company.inputs.MouseInput;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -45,11 +46,12 @@ public class Game extends Canvas  implements Runnable{
     public static Sprite grass;
 
     public static Sprite powerUp;
+    public static Sprite lifeWine;
     public static Sprite usedPowerUp;
 
     public static Sprite wine;
     public static Sprite coin;
-    public static Sprite snake[] = new Sprite[8];
+    public static Sprite snake[] = new Sprite[9];
 
     public static Sprite player[] = new Sprite[6];
 
@@ -77,6 +79,7 @@ public class Game extends Canvas  implements Runnable{
         grass = new Sprite(sheet,1,1);
 
         powerUp=new Sprite(sheet, 3, 1);
+        lifeWine= new Sprite(sheet,6,1);
         usedPowerUp = new Sprite(sheet, 4,1);
 
         wine= new Sprite(sheet,2,1);
@@ -94,7 +97,7 @@ public class Game extends Canvas  implements Runnable{
          }
 
          try {
-             image = ImageIO.read(getClass().getResource("/level.png"));
+             image = ImageIO.read(getClass().getResource("/boss.png"));
          } catch (IOException e) {
              e.printStackTrace();
          }
@@ -164,8 +167,8 @@ public class Game extends Canvas  implements Runnable{
         if (!showDeathScreen) {
             g.drawImage(Game.coin.getBufferedImage(),20,20,75,75,null);
             g.setColor(Color.WHITE);
-            g.setFont(new Font("Courier",Font.BOLD,20));
-            g.drawString("x"+coin,100,95);
+            g.setFont(new Font("RetroGame",Font.BOLD,32));
+            g.drawString("x"+coins,100,95);
         }
         if(showDeathScreen){
             if (!gameOver){
@@ -194,6 +197,14 @@ public class Game extends Canvas  implements Runnable{
         return HEIGHT*SCALE;
     }
 
+    public static Rectangle getVisibleArea(){
+        for (int i =0;i<handler.entity.size();i++){
+            Entity e = handler.entity.get(i);
+            if(e.getId()==Id.player) return new Rectangle(e.getX()-(getFrameWidth()/2-5),e.getY()-(getFrameHeight()/2-5),getFrameWidth()+10,getFrameHeight()+10);
+        }
+        return null;
+    }
+
     public void tick(){
         handler.tick();
         for(Entity e:handler.entity){
@@ -201,13 +212,20 @@ public class Game extends Canvas  implements Runnable{
                 cam.tick(e);
             }
         }
-        if(showDeathScreen&&!gameOver) deathScreenTime++;
+        if(showDeathScreen&&!gameOver&&playing) deathScreenTime++;
         if(deathScreenTime>=180){
-            showDeathScreen =false;
-            deathScreenTime =0;
-            handler.clearLevel();
-            handler.createLevel(image);
-            themesong.play();
+            if (!gameOver){
+                showDeathScreen =false;
+                deathScreenTime =0;
+                handler.clearLevel();
+                handler.createLevel(image);
+            }
+            else if(gameOver){
+                showDeathScreen =false;
+                deathScreenTime =0;
+                playing=false;
+                gameOver=false;
+            }
         }
     }
 

@@ -3,6 +3,7 @@ package com.company.entity;
 import com.company.Game;
 import com.company.Handler;
 import com.company.Id;
+import com.company.state.BossState;
 
 import java.awt.*;
 
@@ -11,10 +12,18 @@ public abstract class Entity {
     public int y;
     public int width, height;
     public int facing = 0;
+    public int hp;
+    public int phaseTime;
 
     public int frame = 0;
     public int frameDelay = 0; //update idő a frame váltások közt
 
+    public int type;
+    public int getType() {
+        return type;
+    }
+
+    public boolean attackable = false;
     public boolean jumping = false;
     public boolean falling = true;
     public double gravity = 0.0;
@@ -23,6 +32,7 @@ public abstract class Entity {
     public int velY;
 
     public Id id;
+    public BossState bossState;
     public Handler handler;
 
     public Entity(int x, int y, int width, int height, Id id,Handler handler){
@@ -40,13 +50,14 @@ public abstract class Entity {
 
     public void die(){
         handler.removeEntity(this);
-        /*
-
-        Game.lives--;
-        Game.showDeathScreen=true;
-        if (Game.lives<=0){
-            Game.gameOver=true;
+        if (getId()==Id.player){
+            Game.lives--;
+            Game.showDeathScreen=true;
+            if (Game.lives<=0){
+                Game.gameOver=true;
+            }
         }
+    }
 
          */
     }
