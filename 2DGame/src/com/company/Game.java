@@ -219,6 +219,7 @@ public class Game extends Canvas  implements Runnable{
                 deathScreenTime =0;
                 handler.clearLevel();
                 handler.createLevel(image);
+                themesong.play();
             }
             else if(gameOver){
                 showDeathScreen =false;

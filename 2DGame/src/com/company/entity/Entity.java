@@ -59,8 +59,6 @@ public abstract class Entity {
         }
     }
 
-         */
-    }
     public  void diePlayer(){
         Game.themesong.stop();
         handler.removeEntity(this);
