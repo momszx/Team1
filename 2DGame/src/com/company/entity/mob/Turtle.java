@@ -36,7 +36,11 @@ public class Turtle extends Entity {
     }
 
     public void render(Graphics g) {
-        g.drawImage(Game.turtle.getBufferedImage(), x, y, width, height, null);
+        if (facing == 0){
+            g.drawImage(Game.turtle[1].getBufferedImage(), x, y, width, height, null);
+        } else if(facing == 1){
+            g.drawImage(Game.turtle[0].getBufferedImage(), x, y, width, height, null);
+        }
     }
 
     public void tick() {
