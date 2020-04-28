@@ -26,13 +26,19 @@ public class TowerBoss extends Entity {
     public void render(Graphics g) {
         if (bossState==BossState.RUNNING || bossState==BossState.JUMPING){
             if (facing == 0){
-                g.drawImage(Game.snake[4+frame].getBufferedImage(), x, y, width, height, null);
+                g.drawImage(Game.towerBoss[4+frame].getBufferedImage(), x, y, width, height, null);
             } else if(facing == 1){
-                g.drawImage(Game.snake[frame].getBufferedImage(), x, y, width, height, null);
+                g.drawImage(Game.towerBoss[frame].getBufferedImage(), x, y, width, height, null);
             }
         }
-        else if (bossState==BossState.RECOVERING) g.drawImage(Game.snake[8].getBufferedImage(), x, y, width, height, null);
-        else g.drawImage(Game.snake[1].getBufferedImage(), x, y, width, height, null);
+        else if (bossState==BossState.RECOVERING || bossState==BossState.IDLE || bossState==BossState.SPINNING){
+            if (facing == 0){
+                g.drawImage(Game.towerBoss[9].getBufferedImage(), x, y, width, height, null);
+            } else if(facing == 1){
+                g.drawImage(Game.towerBoss[8].getBufferedImage(), x, y, width, height, null);
+            }
+        }
+        else g.drawImage(Game.towerBoss[1].getBufferedImage(), x, y, width, height, null);
     }
 
     public void tick() {

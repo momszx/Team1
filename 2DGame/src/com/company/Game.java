@@ -51,7 +51,8 @@ public class Game extends Canvas  implements Runnable{
 
     public static Sprite wine;
     public static Sprite coin;
-    public static Sprite snake[] = new Sprite[9];
+    public static Sprite snake[] = new Sprite[8];
+    public static Sprite towerBoss[] = new Sprite[10];
 
     public static Sprite player[] = new Sprite[6];
 
@@ -94,6 +95,11 @@ public class Game extends Canvas  implements Runnable{
          for (int i=0;i<snake.length;i++)
          {
              snake[i] = new Sprite(sheet, i+1, 15);
+         }
+
+         for (int i=0;i<towerBoss.length;i++)
+         {
+             towerBoss[i] = new Sprite(sheet, i+1, 14);
          }
 
          try {
