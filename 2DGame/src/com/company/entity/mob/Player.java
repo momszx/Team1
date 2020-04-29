@@ -126,8 +126,8 @@ public class Player extends Entity {
                         if(getBounds().intersects(e.getBounds())){
                             int tpX = getX();
                             int tpY = getY();
-                            width*=1.5;
-                            height*=1.5;
+                            width*=1.2;
+                            height*=1.2;
                             setX(tpX-width);
                             setY(tpY-height);
                             if(state == PlayerState.SMALL) state = PlayerState.BIG;
@@ -151,8 +151,8 @@ public class Player extends Entity {
                         if (e.getId()==Id.plant){
                             if (state == PlayerState.BIG) {
                                 state = PlayerState.SMALL;
-                                width /= 1.5;
-                                height /=1.5;
+                                width /= 1.2;
+                                height /=1.2;
                                 y-=100;
                             } else if (state == PlayerState.SMALL) {
                                 die();
@@ -175,8 +175,8 @@ public class Player extends Entity {
                     else if(getBounds().intersects(e.getBounds())) {
                         if (state == PlayerState.BIG) {
                             state = PlayerState.SMALL;
-                            width /= 1.5;
-                            height /=1.5;
+                            width /= 1.2;
+                            height /=1.2;
                             y-=100;
                         } else if (state == PlayerState.SMALL) {
                             die();
@@ -212,8 +212,8 @@ public class Player extends Entity {
                         else if(getBounds().intersects(e.getBounds())){
                             if (state == PlayerState.BIG) {
                                 state = PlayerState.SMALL;
-                                width /= 1.5;
-                                height /=1.5;
+                                width /= 1.2;
+                                height /=1.2;
                                 y-=100;
                             } else if (state == PlayerState.SMALL) {
                                 die();
@@ -260,8 +260,8 @@ public class Player extends Entity {
                         else if(getBounds().intersects(e.getBounds())){
                             if (state == PlayerState.BIG) {
                                 state = PlayerState.SMALL;
-                                width /= 1.5;
-                                height /=1.5;
+                                width /= 1.2;
+                                height /=1.2;
                                 y-=100;
                             } else if (state == PlayerState.SMALL) {
                                 die();

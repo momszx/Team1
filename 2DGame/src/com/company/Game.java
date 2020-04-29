@@ -23,15 +23,17 @@ public class Game extends Canvas  implements Runnable{
     public static  final int HEIGHT = 300; //same
     public static  final int SCALE =4;
     public static final String TITTLE="GAME";
+    public static Font RetroGame;
     private Thread thread;
     private boolean running = false;
 
     private static BufferedImage[] levels;
+    private static BufferedImage background;
     private static int level = 0;
     private static String levelPaths = "/level.png";
 
     public static int coins =0;
-    public static int lives =5;
+    public static int lives =1;
     public static int deathScreenTime =0;
 
     public static boolean showDeathScreen =true;
@@ -133,6 +135,7 @@ public class Game extends Canvas  implements Runnable{
         }
 
         try {
+            background = ImageIO.read(getClass().getResource("/GameBackGround.png"));
             for (int i=0;i<levels.length;i++){
                 String asd = "/level"+(i+1)+".png";
                 levels[i] = ImageIO.read(getClass().getResource(asd));
@@ -195,30 +198,34 @@ public class Game extends Canvas  implements Runnable{
     }
 
     public void render(){ //displaying on the screen
+        try{
+            RetroGame = Font.createFont(Font.TRUETYPE_FONT, new File("res/RetroGaming.ttf")).deriveFont(40F);
+        }
+        catch (IOException | FontFormatException e){
+
+        }
         BufferStrategy bs = getBufferStrategy();
         if(bs==null){
             createBufferStrategy(3); //3 bufferstrategy will build up our screen
             return;
         }
         Graphics g = bs.getDrawGraphics();
-        g.setColor(Color.MAGENTA);
-        g.fillRect(0,0,getWidth(), getHeight());
+
         if (!showDeathScreen) {
-            g.drawImage(Game.coin.getBufferedImage(),20,20,75,75,null);
-            g.setColor(Color.WHITE);
-            g.setFont(new Font("RetroGame",Font.BOLD,32));
-            g.drawString("x"+coins,100,95);
+            g.drawImage(background,0,0,getWidth(),getHeight(),null);
         }
         if(showDeathScreen){
+            g.setColor(Color.BLACK);
+            g.fillRect(0,0,getWidth(),getHeight());
             if (!gameOver){
                 g.setColor(Color.WHITE);
-                g.setFont(new Font("Courier",Font.BOLD,50));
-                g.drawImage(Game.player[0].getBufferedImage(),500,300,100,100,null);
-                g.drawString("x"+lives,300,400);
+                g.setFont(RetroGame);
+                g.drawImage(Game.player[0].getBufferedImage(),getWidth()/2-50,getHeight()/2,100,100,null);
+                g.drawString("x"+lives,getWidth()/2-100,getHeight()/2+70);
             }else {
                 g.setColor(Color.WHITE);
-                g.setFont(new Font("Courier",Font.BOLD,50));
-                g.drawString("Game Over",610,400);
+                g.setFont(RetroGame);
+                g.drawString("Game Over",getWidth()/2-150,getHeight()/2);
             }
         }
         if (playing) g.translate(cam.getX(),cam.getY());

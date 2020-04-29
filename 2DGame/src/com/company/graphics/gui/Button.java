@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Button {
-    Font RetroGame;
+
     public int x,y;
     public int width,height;
 
@@ -22,14 +22,8 @@ public class Button {
     }
 
     public void render(Graphics g){
-        try{
-            RetroGame = Font.createFont(Font.TRUETYPE_FONT, new File("res/RetroGaming.ttf")).deriveFont(40F);
-        }
-        catch (IOException | FontFormatException e){
-
-        }
         g.setColor(Color.WHITE);
-        g.setFont(RetroGame);
+        g.setFont(Game.RetroGame);
         FontMetrics fm = g.getFontMetrics();
         int stringX = (getWidth() - fm.stringWidth(getLabel())) /2;
         int stringY = (fm.getAscent() + (getHeight() - (fm.getAscent() + fm.getDescent())) /2);

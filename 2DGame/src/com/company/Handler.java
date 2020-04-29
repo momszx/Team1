@@ -17,7 +17,7 @@ public class Handler {
     public void  render(Graphics g){
         for(int i=0; i < entity.size(); i++){
             Entity e = entity.get(i);
-            if(Game.getVisibleArea()!=null && e.getBounds().intersects(Game.getVisibleArea()) && e.getId()!=Id.particle) e.render(g);
+            if(Game.getVisibleArea()!=null && e.getBounds().intersects(Game.getVisibleArea()) && e.getId()==Id.plant) e.render(g);
         }
         for(int i=0; i < tile.size(); i++){
             Tile t = tile.get(i);
@@ -25,8 +25,13 @@ public class Handler {
         }
         for(int i=0; i < entity.size(); i++){
             Entity e = entity.get(i);
-            if(Game.getVisibleArea()!=null && e.getBounds().intersects(Game.getVisibleArea())  && e.getId()==Id.particle) e.render(g);
+            if(Game.getVisibleArea()!=null && e.getBounds().intersects(Game.getVisibleArea()) && e.getId()!=Id.plant) e.render(g);
         }
+
+        g.drawImage(Game.coin.getBufferedImage(),Game.getVisibleArea().x+20,Game.getVisibleArea().y+20,75,75,null);
+        g.setColor(Color.WHITE);
+        g.setFont(Game.RetroGame);
+        g.drawString("x"+Game.coins,Game.getVisibleArea().x+100,Game.getVisibleArea().y+75);
     }
     public void tick(){
         for(int i=0; i < entity.size(); i++){
