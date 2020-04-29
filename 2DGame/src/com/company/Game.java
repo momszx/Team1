@@ -59,6 +59,7 @@ public class Game extends Canvas  implements Runnable{
     public static Sprite flag[];
     public static Sprite player[];
     public static Sprite plant;
+    public static Sprite star;
 
     public static Sound jump;
     public static Sound levelcomplet;
@@ -90,13 +91,14 @@ public class Game extends Canvas  implements Runnable{
         usedPowerUp = new Sprite(sheet, 4,1);
         wine= new Sprite(sheet,2,1);
         coin=new Sprite(sheet,5,1);
+        plant = new Sprite(sheet,1,12);
+        star = new Sprite(sheet,7,1);
 
         turtle = new Sprite[3];
         snake = new Sprite[8];
         towerBoss = new Sprite[10];
         flag = new Sprite[3];
         player = new Sprite[6];
-        plant = new Sprite(sheet,1,12);
 
         for (int i=0;i<turtle.length;i++)
         {

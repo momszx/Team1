@@ -6,7 +6,6 @@ import com.company.Id;
 import com.company.entity.Entity;
 
 import java.awt.*;
-import java.security.PrivateKey;
 import java.util.Random;
 
 public class Plant extends Entity {

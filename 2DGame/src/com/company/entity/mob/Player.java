@@ -18,6 +18,8 @@ public class Player extends Entity {
 
     private PlayerState state;
     private int pixelsTravelled = 0;
+    private boolean invincible=false;
+    private int invincibilityTime=0;
 
     public Player(int x, int y, int width, int height, Id id, Handler handler) {
         super(x, y, width, height, id, handler);
@@ -36,6 +38,14 @@ public class Player extends Entity {
     public void tick() {
         x+=velX;
         y+=velY;
+
+        if (invincible){
+            invincibilityTime++;
+            if (invincibilityTime>600){
+                invincible=false;
+                invincibilityTime=0;
+            }
+        }
 
         for (int i=0;i<handler.tile.size();i++){
             Tile t =handler.tile.get(i);
@@ -104,8 +114,36 @@ public class Player extends Entity {
                 }
 
             } else if(e.getId()==Id.snake || e.getId()==Id.towerBoss || e.getId()==Id.plant) {
-                if(getBoundsBottom().intersects(e.getBoundsTop())){
-                    if (e.getId()==Id.plant){
+                if (invincible){
+                    if(getBounds().intersects(e.getBounds())) e.die();
+                }
+                else {
+                    if(getBoundsBottom().intersects(e.getBoundsTop())){
+                        if (e.getId()==Id.plant){
+                            if (state == PlayerState.BIG) {
+                                state = PlayerState.SMALL;
+                                width /= 1.5;
+                                height /=1.5;
+                                y-=100;
+                            } else if (state == PlayerState.SMALL) {
+                                die();
+                            }
+                        }
+                        if (e.getId()!=Id.towerBoss) e.die();
+                        else if(e.attackable){
+                            e.hp--;
+                            e.falling=true;
+                            e.gravity=3.0;
+                            e.bossState= BossState.RECOVERING;
+                            e.attackable=false;
+                            e.phaseTime=0;
+
+                            jumping=true;
+                            falling=false;
+                            gravity=3.5;
+                        }
+                    }
+                    else if(getBounds().intersects(e.getBounds())) {
                         if (state == PlayerState.BIG) {
                             state = PlayerState.SMALL;
                             width /= 1.5;
@@ -115,30 +153,8 @@ public class Player extends Entity {
                             die();
                         }
                     }
-                    if (e.getId()!=Id.towerBoss) e.die();
-                    else if(e.attackable){
-                        e.hp--;
-                        e.falling=true;
-                        e.gravity=3.0;
-                        e.bossState= BossState.RECOVERING;
-                        e.attackable=false;
-                        e.phaseTime=0;
+                }
 
-                        jumping=true;
-                        falling=false;
-                        gravity=3.5;
-                    }
-                }
-                else if(getBounds().intersects(e.getBounds())) {
-                    if (state == PlayerState.BIG) {
-                        state = PlayerState.SMALL;
-                        width /= 1.5;
-                        height /=1.5;
-                        y-=100;
-                    } else if (state == PlayerState.SMALL) {
-                        die();
-                    }
-                }
             }
             else if(e.getId()==Id.coin){
                 if(getBounds().intersects(e.getBounds())&&e.getId()==Id.coin){
@@ -146,56 +162,86 @@ public class Player extends Entity {
                     e.die();
                 }
             }
-            else if(e.getId()==Id.turtle){
-                if (e.turtleState== TurtleState.WALKING){
-                    if (getBoundsBottom().intersects(e.getBoundsTop())){
-                        e.turtleState=TurtleState.SHELL;
-                        jumping=true;
-                        falling=false;
-                        gravity=5;
-                    }
-                    else if(getBounds().intersects(e.getBounds())) die();
-                }
-                else if(e.turtleState==TurtleState.SHELL){
-                    if (getBoundsBottom().intersects(e.getBoundsTop())){
-
-                        int dir = rnd.nextInt(2);
-                        switch (dir){
-                            case 0:
-                                e.setVelX(-10);
-                                facing = 0;
-                                break;
-                            case 1:
-                                e.setVelX(10);
-                                facing = 1;
-                                break;
-                        }
-
-                        e.turtleState=TurtleState.SPINNING;
-                        jumping=true;
-                        falling=false;
-                        gravity=3.5;
-                    }
-
-                    if (getBoundsLeft().intersects(e.getBoundsRight())){
-                        e.setVelX(-10);
-                        e.turtleState=TurtleState.SPINNING;
-                    }
-                    if (getBoundsRight().intersects(e.getBoundsLeft())){
-                        e.setVelX(10);
-                        e.turtleState=TurtleState.SPINNING;
-                    }
-                }
-                else if(e.turtleState==TurtleState.SPINNING){
-                    if (getBoundsBottom().intersects(e.getBoundsTop())){
-                        e.turtleState=TurtleState.SHELL;
-                        jumping=true;
-                        falling=false;
-                        gravity=3.5;
-                    }
-                    else if(getBounds().intersects(e.getBounds())) die();
+            else if(e.getId()==Id.poweStar){
+                if(getBounds().intersects(e.getBounds())&&e.getId()==Id.poweStar){
+                    invincible=true;
+                    e.die();
                 }
             }
+            else if(e.getId()==Id.turtle){
+                if (invincible){
+                    if(getBounds().intersects(e.getBounds())) e.die();
+                }
+                else {
+                    if (e.turtleState== TurtleState.WALKING){
+                        if (getBoundsBottom().intersects(e.getBoundsTop())){
+                            e.turtleState=TurtleState.SHELL;
+                            jumping=true;
+                            falling=false;
+                            gravity=5;
+                        }
+                        else if(getBounds().intersects(e.getBounds())){
+                            if (state == PlayerState.BIG) {
+                                state = PlayerState.SMALL;
+                                width /= 1.5;
+                                height /=1.5;
+                                y-=100;
+                            } else if (state == PlayerState.SMALL) {
+                                die();
+                            }
+                        }
+                    }
+                    else if(e.turtleState==TurtleState.SHELL){
+                        if (getBoundsBottom().intersects(e.getBoundsTop())){
+
+                            int dir = rnd.nextInt(2);
+                            switch (dir){
+                                case 0:
+                                    e.setVelX(-10);
+                                    facing = 0;
+                                    break;
+                                case 1:
+                                    e.setVelX(10);
+                                    facing = 1;
+                                    break;
+                            }
+
+                            e.turtleState=TurtleState.SPINNING;
+                            jumping=true;
+                            falling=false;
+                            gravity=3.5;
+                        }
+
+                        if (getBoundsLeft().intersects(e.getBoundsRight())){
+                            e.setVelX(-10);
+                            e.turtleState=TurtleState.SPINNING;
+                        }
+                        if (getBoundsRight().intersects(e.getBoundsLeft())){
+                            e.setVelX(10);
+                            e.turtleState=TurtleState.SPINNING;
+                        }
+                    }
+                    else if(e.turtleState==TurtleState.SPINNING){
+                        if (getBoundsBottom().intersects(e.getBoundsTop())){
+                            e.turtleState=TurtleState.SHELL;
+                            jumping=true;
+                            falling=false;
+                            gravity=3.5;
+                        }
+                        else if(getBounds().intersects(e.getBounds())){
+                            if (state == PlayerState.BIG) {
+                                state = PlayerState.SMALL;
+                                width /= 1.5;
+                                height /=1.5;
+                                y-=100;
+                            } else if (state == PlayerState.SMALL) {
+                                die();
+                            }
+                        }
+                    }
+                }
+            }
+
         }
         if(jumping && !goingDownPipe) {
             gravity -= 0.2;
