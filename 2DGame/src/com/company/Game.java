@@ -26,7 +26,9 @@ public class Game extends Canvas  implements Runnable{
     private Thread thread;
     private boolean running = false;
 
-    private BufferedImage image;
+    private static BufferedImage[] levels;
+    private static int level = 0;
+    private static String levelPaths = "/level.png";
 
     public static int coins =0;
     public static int lives =5;
@@ -51,11 +53,11 @@ public class Game extends Canvas  implements Runnable{
 
     public static Sprite wine;
     public static Sprite coin;
-    public static Sprite turtle[] = new Sprite[2];
-    public static Sprite snake[] = new Sprite[8];
-    public static Sprite towerBoss[] = new Sprite[10];
-
-    public static Sprite player[] = new Sprite[6];
+    public static Sprite turtle[];
+    public static Sprite snake[];
+    public static Sprite towerBoss[];
+    public static Sprite flag[];
+    public static Sprite player[];
 
     public static Sound jump;
     public static Sound levelcomplet;
@@ -78,44 +80,59 @@ public class Game extends Canvas  implements Runnable{
         addMouseListener(mouse);
         addMouseMotionListener(mouse);
         cam =new Camera();
-        grass = new Sprite(sheet,1,1);
 
+        levels = new BufferedImage[2];
+
+        grass = new Sprite(sheet,1,1);
         powerUp=new Sprite(sheet, 3, 1);
         lifeWine= new Sprite(sheet,6,1);
         usedPowerUp = new Sprite(sheet, 4,1);
-
         wine= new Sprite(sheet,2,1);
         coin=new Sprite(sheet,5,1);
 
-         for (int i=0;i<turtle.length;i++)
-         {
-             turtle[i] = new Sprite(sheet, i+1, 13);
-         }
+        turtle = new Sprite[3];
+        snake = new Sprite[8];
+        towerBoss = new Sprite[10];
+        flag = new Sprite[3];
+        player = new Sprite[6];
+
+        for (int i=0;i<turtle.length;i++)
+        {
+            turtle[i] = new Sprite(sheet, i+1, 13);
+        }
 
         for (int i=0;i<player.length;i++)
         {
            player[i] = new Sprite(sheet, i+1, 16);
         }
 
-         for (int i=0;i<snake.length;i++)
-         {
-             snake[i] = new Sprite(sheet, i+1, 15);
-         }
+        for (int i=0;i<snake.length;i++)
+        {
+            snake[i] = new Sprite(sheet, i+1, 15);
+        }
 
-         for (int i=0;i<towerBoss.length;i++)
-         {
-             towerBoss[i] = new Sprite(sheet, i+1, 14);
-         }
+        for (int i=0;i<towerBoss.length;i++)
+        {
+            towerBoss[i] = new Sprite(sheet, i+1, 14);
+        }
 
-         try {
-             image = ImageIO.read(getClass().getResource("/level.png"));
-         } catch (IOException e) {
-             e.printStackTrace();
-         }
-         jump =new Sound("/jump.mp3");
-         levelcomplet =new Sound("/levelComplete.mp3");
-         loasealife =new Sound("/lifeLose.wav");
-         themesong =new Sound("/themesong.wav");
+        for (int i=0;i<flag.length;i++)
+        {
+            flag[i] = new Sprite(sheet, i+1, 2);
+        }
+
+        try {
+            for (int i=0;i<levels.length;i++){
+                String asd = "/level"+(i+1)+".png";
+                levels[i] = ImageIO.read(getClass().getResource(asd));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        jump =new Sound("/jump.mp3");
+        levelcomplet =new Sound("/levelComplete.mp3");
+        loasealife =new Sound("/lifeLose.wav");
+        themesong =new Sound("/themesong.wav");
      }
 
     private synchronized void start(){
@@ -216,6 +233,13 @@ public class Game extends Canvas  implements Runnable{
         return null;
     }
 
+    public static void switchLevel(){
+        level++;
+
+        handler.clearLevel();
+        handler.createLevel(levels[level]);
+    }
+
     public void tick(){
         handler.tick();
         for(Entity e:handler.entity){
@@ -229,7 +253,7 @@ public class Game extends Canvas  implements Runnable{
                 showDeathScreen =false;
                 deathScreenTime =0;
                 handler.clearLevel();
-                handler.createLevel(image);
+                handler.createLevel(levels[level]);
                 themesong.play();
                 coins=0;
             }

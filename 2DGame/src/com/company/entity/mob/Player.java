@@ -54,24 +54,30 @@ public class Player extends Entity {
                 if(getBoundsTop().intersects(t.getBounds())) t.activated=true;
             }
 
-                if(getBoundsBottom().intersects(t.getBounds())) {
-                    setVelY(0);
-                    if(falling) falling = false;
-                }else {
-                    if(!falling && !jumping){
-                        gravity = 0.0;
-                        falling = true;
-                    }
-                }
-                if(getBoundsLeft().intersects(t.getBounds())) {
-                    setVelX(0);
-                    x = t.getX()+t.width;
-                }
-                if(getBoundsRight().intersects(t.getBounds())) {
-                    setVelX(0);
-                    x = t.getX()-t.width;
+            if(getBoundsBottom().intersects(t.getBounds())) {
+                setVelY(0);
+                if(falling) falling = false;
+            }
+            else {
+                if(!falling && !jumping){
+                    gravity = 0.0;
+                    falling = true;
                 }
             }
+            if(getBoundsLeft().intersects(t.getBounds())) {
+                setVelX(0);
+                x = t.getX()+t.width;
+            }
+            if(getBoundsRight().intersects(t.getBounds())) {
+                setVelX(0);
+                x = t.getX()-t.width;
+            }
+
+            if (t.getId()==Id.flag){
+                if(getBounds().intersects(t.getBounds())) Game.switchLevel();
+            }
+
+        }
 
         for (int i=0;i<handler.entity.size();i++){
             Entity e =handler.entity.get(i);
