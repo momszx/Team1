@@ -37,16 +37,13 @@ public class Player extends Entity {
         x+=velX;
         y+=velY;
 
-        if(goingDownPipe) {
-            pixelsTravelled += velY;
-        }
         for (int i=0;i<handler.tile.size();i++){
             Tile t =handler.tile.get(i);
             if(!t.solid && !goingDownPipe) break;
             if(t.getId()==Id.wall) {
                 if (getBoundsTop().intersects(t.getBounds())) {
                     setVelY(0);
-                    if (jumping) {
+                    if (jumping&&!goingDownPipe) {
                         jumping = false;
                         gravity = 0.0;
                         falling = true;
@@ -211,18 +208,23 @@ public class Player extends Entity {
             for (int i = 0; i < Game.handler.tile.size(); i++){
                 Tile t = Game.handler.tile.get(i);
                 if(t.getId() ==Id.pipe) {
-                    if (getBoundsBottom().intersects(t.getBounds())) {
+                    if (getBounds().intersects(t.getBounds())) {
                         switch (t.facing) {
                             case 0:
                                 setVelY(-5);
                                 setVelX(0);
+                                pixelsTravelled += -velY;
                                 break;
                             case 2:
                                 setVelY(5);
                                 setVelX(0);
+                                pixelsTravelled+=velY;
                                 break;
                         }
-                        if (pixelsTravelled > t.height) goingDownPipe = false;
+                        if (pixelsTravelled > t.height +100000){
+                            goingDownPipe = false;
+                            pixelsTravelled = 0;
+                        }
                     }
                 }
             }

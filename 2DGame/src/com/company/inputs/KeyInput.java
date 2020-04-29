@@ -22,6 +22,14 @@ public class KeyInput implements KeyListener {
                 if(en.goingDownPipe) return;
                 switch (key) {
                     case KeyEvent.VK_W:
+                        for (int j = 0; j < Game.handler.tile.size(); j++){
+                            Tile t = Game.handler.tile.get(j);
+                            if(t.getId()==Id.pipe){
+                                if(en.getBoundsTop().intersects(t.getBounds())){
+                                    if(!en.goingDownPipe) en.goingDownPipe = true;
+                                }
+                            }
+                        }
                         if (!en.jumping && en.gravity==0.2) {
                             en.jumping = true;
                             en.gravity = 10.0;
