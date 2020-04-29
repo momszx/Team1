@@ -231,6 +231,7 @@ public class Game extends Canvas  implements Runnable{
                 handler.clearLevel();
                 handler.createLevel(image);
                 themesong.play();
+                coins=0;
             }
             else if(gameOver){
                 showDeathScreen =false;
