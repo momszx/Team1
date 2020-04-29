@@ -17,6 +17,7 @@ public class Player extends Entity {
     private Random rnd = new Random();
 
     private PlayerState state;
+    private int pixelsTravelled = 0;
 
     public Player(int x, int y, int width, int height, Id id, Handler handler) {
         super(x, y, width, height, id, handler);
@@ -35,10 +36,13 @@ public class Player extends Entity {
     public void tick() {
         x+=velX;
         y+=velY;
-        //for(Tile t:handler.tile){
+
+        if(goingDownPipe) {
+            pixelsTravelled += velY;
+        }
         for (int i=0;i<handler.tile.size();i++){
             Tile t =handler.tile.get(i);
-            if(!t.solid) break;
+            if(!t.solid && !goingDownPipe) break;
             if(t.getId()==Id.wall) {
                 if (getBoundsTop().intersects(t.getBounds())) {
                     setVelY(0);
@@ -180,7 +184,7 @@ public class Player extends Entity {
                 }
             }
         }
-        if(jumping) {
+        if(jumping && !goingDownPipe) {
             gravity -= 0.2;
             setVelY((int) -gravity);
             if (gravity <= 0.0) {
@@ -188,7 +192,7 @@ public class Player extends Entity {
                 falling = true;
             }
         }
-        if(falling) {
+        if(falling && !goingDownPipe) {
             gravity +=0.2;
             setVelY((int)gravity);
         }
@@ -203,6 +207,25 @@ public class Player extends Entity {
                 frameDelay=0;
             }
         }
-
+        if(goingDownPipe){
+            for (int i = 0; i < Game.handler.tile.size(); i++){
+                Tile t = Game.handler.tile.get(i);
+                if(t.getId() ==Id.pipe) {
+                    if (getBoundsBottom().intersects(t.getBounds())) {
+                        switch (t.facing) {
+                            case 0:
+                                setVelY(-5);
+                                setVelX(0);
+                                break;
+                            case 2:
+                                setVelY(5);
+                                setVelX(0);
+                                break;
+                        }
+                        if (pixelsTravelled > t.height) goingDownPipe = false;
+                    }
+                }
+            }
+        }
     }
 }

@@ -11,6 +11,7 @@ public abstract class Tile {
     public int width, height;
     public boolean solid;
     public boolean activated = false;
+    public int facing;
 
     public int velX; //velocity
     public int velY;

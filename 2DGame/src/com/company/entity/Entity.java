@@ -20,6 +20,8 @@ public abstract class Entity {
     public int frame = 0;
     public int frameDelay = 0; //update idő a frame váltások közt
 
+    public boolean goingDownPipe = false;
+
     public int type;
     public int getType() {
         return type;

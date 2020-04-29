@@ -220,7 +220,7 @@ public class Game extends Canvas  implements Runnable{
         handler.tick();
         for(Entity e:handler.entity){
             if (e.getId()==Id.player){
-                cam.tick(e);
+                if(!e.goingDownPipe)cam.tick(e);
             }
         }
         if(showDeathScreen&&!gameOver&&playing) deathScreenTime++;
