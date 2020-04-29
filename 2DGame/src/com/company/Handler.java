@@ -17,17 +17,21 @@ public class Handler {
     public void  render(Graphics g){
         for(int i=0; i < entity.size(); i++){
             Entity e = entity.get(i);
-            if(Game.getVisibleArea()!=null && e.getBounds().intersects(Game.getVisibleArea())) e.render(g);
+            if(Game.getVisibleArea()!=null && e.getBounds().intersects(Game.getVisibleArea()) && e.getId()!=Id.particle) e.render(g);
         }
         for(int i=0; i < tile.size(); i++){
             Tile t = tile.get(i);
             if(Game.getVisibleArea()!=null && t.getBounds().intersects(Game.getVisibleArea())) t.render(g);
         }
+        for(int i=0; i < entity.size(); i++){
+            Entity e = entity.get(i);
+            if(Game.getVisibleArea()!=null && e.getBounds().intersects(Game.getVisibleArea())  && e.getId()==Id.particle) e.render(g);
+        }
     }
     public void tick(){
         for(int i=0; i < entity.size(); i++){
             Entity e = entity.get(i);
-            if(Game.getVisibleArea()!=null && e.getBounds().intersects(Game.getVisibleArea())) e.tick();
+            e.tick();
         }
         for(int i=0; i < tile.size(); i++){
             Tile t = tile.get(i);

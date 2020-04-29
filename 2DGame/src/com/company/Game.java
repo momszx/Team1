@@ -60,6 +60,7 @@ public class Game extends Canvas  implements Runnable{
     public static Sprite player[];
     public static Sprite plant;
     public static Sprite star;
+    public static Sprite particle[];
 
     public static Sound jump;
     public static Sound levelcomplet;
@@ -99,6 +100,12 @@ public class Game extends Canvas  implements Runnable{
         towerBoss = new Sprite[10];
         flag = new Sprite[3];
         player = new Sprite[6];
+        particle = new Sprite[6];
+
+         for (int i=0;i<particle.length;i++)
+         {
+             particle[i] = new Sprite(sheet, i+1, 11);
+         }
 
         for (int i=0;i<turtle.length;i++)
         {

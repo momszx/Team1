@@ -4,10 +4,12 @@ import com.company.Game;
 import com.company.Handler;
 import com.company.Id;
 import com.company.entity.Entity;
+import com.company.entity.Particle;
 import com.company.state.BossState;
 import com.company.state.PlayerState;
 import com.company.state.TurtleState;
 import com.company.tile.Tile;
+import com.company.tile.Trail;
 
 import java.awt.*;
 import java.util.Random;
@@ -20,6 +22,7 @@ public class Player extends Entity {
     private int pixelsTravelled = 0;
     private boolean invincible=false;
     private int invincibilityTime=0;
+    private int particleDelay=0;
 
     public Player(int x, int y, int width, int height, Id id, Handler handler) {
         super(x, y, width, height, id, handler);
@@ -40,10 +43,36 @@ public class Player extends Entity {
         y+=velY;
 
         if (invincible){
+            if (facing==0){
+                handler.addTile(new Trail(getX(),getY(),getWidth(),getHeight(),false,Id.trail,handler,Game.player[frame+3].getBufferedImage()));
+            }
+            else if (facing==1){
+                handler.addTile(new Trail(getX(),getY(),getWidth(),getHeight(),false,Id.trail,handler,Game.player[frame].getBufferedImage()));
+            }
+            particleDelay++;
+            if (particleDelay>=3){
+                handler.addEntity(new Particle(getX()+(rnd.nextInt(getWidth())),getY()+(rnd.nextInt(getHeight())),10,10,Id.particle,handler));
+                particleDelay=0;
+            }
             invincibilityTime++;
             if (invincibilityTime>600){
                 invincible=false;
                 invincibilityTime=0;
+            }
+
+            if (velX==5){
+                setVelX(8);
+            }
+            else if (velX==-5){
+                setVelX(-8);
+            }
+            else{
+                if (velX==8){
+                    setVelX(5);
+                }
+                else if (velX==-8){
+                    setVelX(-5);
+                }
             }
         }
 

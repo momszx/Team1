@@ -16,6 +16,22 @@ public abstract class Tile {
     public int velX; //velocity
     public int velY;
 
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
     public Id id;
 
     public Handler handler;
