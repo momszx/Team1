@@ -224,12 +224,15 @@ public class Game extends Canvas  implements Runnable{
                 g.drawString("x"+lives,getWidth()/2-100,getHeight()/2+70);
             }else {
                 g.setColor(Color.WHITE);
-                g.setFont(RetroGame);
-                g.drawString("Game Over",getWidth()/2-150,getHeight()/2);
+                g.setFont(RetroGame.deriveFont(70F));
+                g.drawString("Game Over",getWidth()/2-200,getHeight()/2);
+                handler.clearLevel();
+                handler.tick();
+                launcher.render(g);
             }
         }
         if (playing) g.translate(cam.getX(),cam.getY());
-        if (playing&&!showDeathScreen) handler.render(g);
+        if (playing && !showDeathScreen) handler.render(g);
         else if (!playing) launcher.render(g);
         g.dispose();
         bs.show();

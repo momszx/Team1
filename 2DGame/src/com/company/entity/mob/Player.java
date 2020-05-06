@@ -23,6 +23,8 @@ public class Player extends Entity {
     private boolean invincible=false;
     private int invincibilityTime=0;
     private int particleDelay=0;
+    private int restoreTime=0;
+    private boolean restoring;
 
     public Player(int x, int y, int width, int height, Id id, Handler handler) {
         super(x, y, width, height, id, handler);
@@ -75,6 +77,13 @@ public class Player extends Entity {
                 }
             }
         }
+        if (restoring){
+            restoreTime++;
+            if (restoreTime>=90){
+                restoring=false;
+                restoreTime=0;
+            }
+        }
 
         for (int i=0;i<handler.tile.size();i++){
             Tile t =handler.tile.get(i);
@@ -105,11 +114,14 @@ public class Player extends Entity {
             }
             if(getBoundsLeft().intersects(t.getBounds())) {
                 setVelX(0);
-                x = t.getX()+t.width;
+                x = t.getX()+t.width+5;
             }
             if(getBoundsRight().intersects(t.getBounds())) {
                 setVelX(0);
-                x = t.getX()-t.width;
+                if (t.getId()!=Id.flag || state==PlayerState.BIG){
+                    x = t.getX()-t.width-10;
+                }
+                else x = t.getX()-t.width;
             }
 
             if (t.getId()==Id.flag){
@@ -149,14 +161,7 @@ public class Player extends Entity {
                 else {
                     if(getBoundsBottom().intersects(e.getBoundsTop())){
                         if (e.getId()==Id.plant){
-                            if (state == PlayerState.BIG) {
-                                state = PlayerState.SMALL;
-                                width /= 1.2;
-                                height /=1.2;
-                                y-=100;
-                            } else if (state == PlayerState.SMALL) {
-                                die();
-                            }
+                            takeDamage();
                         }
                         if (e.getId()!=Id.towerBoss) e.die();
                         else if(e.attackable){
@@ -173,14 +178,7 @@ public class Player extends Entity {
                         }
                     }
                     else if(getBounds().intersects(e.getBounds())) {
-                        if (state == PlayerState.BIG) {
-                            state = PlayerState.SMALL;
-                            width /= 1.2;
-                            height /=1.2;
-                            y-=100;
-                        } else if (state == PlayerState.SMALL) {
-                            die();
-                        }
+                        takeDamage();
                     }
                 }
 
@@ -210,14 +208,7 @@ public class Player extends Entity {
                             gravity=5;
                         }
                         else if(getBounds().intersects(e.getBounds())){
-                            if (state == PlayerState.BIG) {
-                                state = PlayerState.SMALL;
-                                width /= 1.2;
-                                height /=1.2;
-                                y-=100;
-                            } else if (state == PlayerState.SMALL) {
-                                die();
-                            }
+                            takeDamage();
                         }
                     }
                     else if(e.turtleState==TurtleState.SHELL){
@@ -258,14 +249,7 @@ public class Player extends Entity {
                             gravity=3.5;
                         }
                         else if(getBounds().intersects(e.getBounds())){
-                            if (state == PlayerState.BIG) {
-                                state = PlayerState.SMALL;
-                                width /= 1.2;
-                                height /=1.2;
-                                y-=100;
-                            } else if (state == PlayerState.SMALL) {
-                                die();
-                            }
+                            takeDamage();
                         }
                     }
                 }
@@ -319,6 +303,24 @@ public class Player extends Entity {
                     }
                 }
             }
+        }
+    }
+    public void takeDamage(){
+        if (restoring) return;
+        if (state==PlayerState.SMALL){
+            die();
+            return;
+        }
+        else if (state==PlayerState.BIG){
+            state = PlayerState.SMALL;
+            width /= 1.2;
+            height /= 1.2;
+            y+=height/4;
+            x+=width/4;
+
+            restoring=true;
+            restoreTime=0;
+            return;
         }
     }
 }

@@ -91,6 +91,6 @@ public abstract class Tile {
     }
 
     public Rectangle getBounds(){
-        return new Rectangle(getX(), getY() ,width, height);
+        return new Rectangle(getX(), getY()-2 ,width+10, height);
     }
 }

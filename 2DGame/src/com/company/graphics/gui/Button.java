@@ -32,8 +32,6 @@ public class Button {
 
     public void mouseClickedEvent(){
         if (getLabel().toLowerCase().contains("pálya")) Game.playing=true;
-        else if (getLabel().toLowerCase().contains("karakter")) System.exit(0);
-        else if (getLabel().toLowerCase().contains("beállítás")) System.exit(0);
         else if (getLabel().toLowerCase().contains("kilépés")) System.exit(0);
     }
 
