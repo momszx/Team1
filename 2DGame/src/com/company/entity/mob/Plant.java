@@ -53,7 +53,7 @@ public class Plant extends Entity {
             }
 
             pixelsTravelled+=velY;
-            if (pixelsTravelled>=getHeight()+6 || pixelsTravelled<=-getHeight()-6){
+            if (pixelsTravelled>=getHeight()+10 || pixelsTravelled<=-getHeight()-10){
                 pixelsTravelled=0;
                 moving=false;
 

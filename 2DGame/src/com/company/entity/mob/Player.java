@@ -32,11 +32,20 @@ public class Player extends Entity {
     }
 
     public void render(Graphics g) {
-        if (facing ==0){
-            g.drawImage(Game.player[frame+3].getBufferedImage(), x, y, width, height, null);
-        } else if(facing ==1){
-            g.drawImage(Game.player[frame].getBufferedImage(), x, y, width, height, null);
+        if (Game.character=="Man"){
+            if (facing ==0){
+                g.drawImage(Game.player[frame+3].getBufferedImage(), x, y, width, height, null);
+            } else if(facing ==1){
+                g.drawImage(Game.player[frame].getBufferedImage(), x, y, width, height, null);
+            }
+        } else{
+            if (facing ==0){
+                g.drawImage(Game.player2[frame+3].getBufferedImage(), x, y, width, height, null);
+            } else if(facing ==1){
+                g.drawImage(Game.player2[frame].getBufferedImage(), x, y, width, height, null);
+            }
         }
+
     }
 
 
@@ -45,12 +54,22 @@ public class Player extends Entity {
         y+=velY;
 
         if (invincible){
-            if (facing==0){
-                handler.addTile(new Trail(getX(),getY(),getWidth(),getHeight(),false,Id.trail,handler,Game.player[frame+3].getBufferedImage()));
+            if (Game.character=="Man"){
+                if (facing==0){
+                    handler.addTile(new Trail(getX(),getY(),getWidth(),getHeight(),false,Id.trail,handler,Game.player[frame+3].getBufferedImage()));
+                }
+                else if (facing==1){
+                    handler.addTile(new Trail(getX(),getY(),getWidth(),getHeight(),false,Id.trail,handler,Game.player[frame].getBufferedImage()));
+                }
+            }else {
+                if (facing==0){
+                    handler.addTile(new Trail(getX(),getY(),getWidth(),getHeight(),false,Id.trail,handler,Game.player2[frame+3].getBufferedImage()));
+                }
+                else if (facing==1){
+                    handler.addTile(new Trail(getX(),getY(),getWidth(),getHeight(),false,Id.trail,handler,Game.player2[frame].getBufferedImage()));
+                }
             }
-            else if (facing==1){
-                handler.addTile(new Trail(getX(),getY(),getWidth(),getHeight(),false,Id.trail,handler,Game.player[frame].getBufferedImage()));
-            }
+
             particleDelay++;
             if (particleDelay>=3){
                 handler.addEntity(new Particle(getX()+(rnd.nextInt(getWidth())),getY()+(rnd.nextInt(getHeight())),10,10,Id.particle,handler));
@@ -88,7 +107,7 @@ public class Player extends Entity {
         for (int i=0;i<handler.tile.size();i++){
             Tile t =handler.tile.get(i);
             if(!t.solid && !goingDownPipe) break;
-            if(t.getId()==Id.wall) {
+            if(t.getId()==Id.wall || t.getId()==Id.dirt) {
                 if (getBoundsTop().intersects(t.getBounds())) {
                     setVelY(0);
                     if (jumping&&!goingDownPipe) {

@@ -55,6 +55,11 @@ public abstract class Entity {
 
     public void die(){
         handler.removeEntity(this);
+        if (getId()==Id.towerBoss){
+            Game.themesong.stop();
+            Game.showDeathScreen=true;
+            Game.gameComplete=true;
+        }
         if (getId()==Id.player){
             Game.themesong.stop();
             Game.lives--;
@@ -120,7 +125,7 @@ public abstract class Entity {
     }
 
     public Rectangle getBoundsTop(){
-        return new Rectangle(x+10, y, width-20, 5);
+        return new Rectangle(getX()+10, getY(), width-20, 5);
     }
 
     public Rectangle getBoundsBottom(){

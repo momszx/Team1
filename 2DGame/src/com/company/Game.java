@@ -1,49 +1,51 @@
 package com.company;
 
 import com.company.entity.Entity;
-import com.company.entity.mob.Player;
 import com.company.graphics.Sprite;
 import com.company.graphics.SpriteSheet;
-import com.company.graphics.gui.Launcher;
-import com.company.graphics.gui.Button;
 import com.company.inputs.KeyInput;
-import com.company.inputs.MouseInput;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
+import javax.swing.*;
 
-public class Game extends Canvas  implements Runnable{
+public class Game extends Canvas  implements Runnable,ActionListener{
 
     public static  final int WIDTH =450; //Ezekkel lehet szorakozni, nekem nagy dög monitorom van, szóval így jó :D
     public static  final int HEIGHT = 300; //same
     public static  final int SCALE =4;
     public static final String TITTLE="GAME";
-    public static Font RetroGame;
     private Thread thread;
     private boolean running = false;
+    private boolean showMainMenu = true;
+    protected static Game game = new Game();
 
     private static BufferedImage[] levels;
     private static BufferedImage background;
     private static int level = 0;
-    private static String levelPaths = "/level.png";
 
+    private static int stop = 0;
     public static int coins =0;
     public static int lives =1;
     public static int deathScreenTime =0;
 
     public static boolean showDeathScreen =true;
     public static boolean gameOver=false;
+    public static boolean gameComplete=false;
 
     public static boolean playing = false;
+    public static String character  = "Man";
 
     public static Handler handler;
-    public static Launcher launcher;
-    public static MouseInput mouse;
 
     public static SpriteSheet sheet;
     public Camera cam;
@@ -60,34 +62,43 @@ public class Game extends Canvas  implements Runnable{
     public static Sprite towerBoss[];
     public static Sprite flag[];
     public static Sprite player[];
+    public static Sprite player2[];
     public static Sprite plant;
     public static Sprite star;
     public static Sprite particle[];
+    public static Sprite dirt;
 
     public static Sound jump;
     public static Sound levelcomplet;
     public static Sound loasealife;
     public static Sound themesong;
 
+    public static  JPanel jpanel = new JPanel();
+    public static JFrame frame=new JFrame();
+    public static JButton chooseLevelBtn=new JButton("Pályaválasztás");
+    public static JButton chooseCharBtn=new JButton("Karakterválasztás");
+    public static JButton settingsBtn=new JButton("Beállítások");
+    public static JButton quitBtn=new JButton("Kilépés");
+    public static Font RetroGame;
+    private int buttonWidth = WIDTH*SCALE/2;
+    private int buttonHeight = HEIGHT*SCALE/6;
+
     public Game(){
-    Dimension size = new Dimension(WIDTH*SCALE,HEIGHT*SCALE);
-    setPreferredSize(size);
-    setMaximumSize(size);
-    setMinimumSize(size);
+        Dimension size = new Dimension(WIDTH*SCALE,HEIGHT*SCALE);
+        setPreferredSize(size);
+        setMaximumSize(size);
+        setMinimumSize(size);
     }
 
      private void init(){
         handler =new Handler();
         sheet = new SpriteSheet("/SpriteSheet.png");
-        launcher = new Launcher();
-        mouse = new MouseInput();
         addKeyListener(new KeyInput());
-        addMouseListener(mouse);
-        addMouseMotionListener(mouse);
         cam =new Camera();
 
-        levels = new BufferedImage[2];
+        levels = new BufferedImage[10];
 
+        dirt = new Sprite(sheet,1,3);
         grass = new Sprite(sheet,1,1);
         powerUp=new Sprite(sheet, 3, 1);
         lifeWine= new Sprite(sheet,6,1);
@@ -102,6 +113,7 @@ public class Game extends Canvas  implements Runnable{
         towerBoss = new Sprite[10];
         flag = new Sprite[3];
         player = new Sprite[6];
+        player2 = new Sprite[6];
         particle = new Sprite[6];
 
          for (int i=0;i<particle.length;i++)
@@ -118,6 +130,10 @@ public class Game extends Canvas  implements Runnable{
         {
            player[i] = new Sprite(sheet, i+1, 16);
         }
+         for (int i=0;i<player2.length;i++)
+         {
+             player2[i] = new Sprite(sheet, i+1, 10);
+         }
 
         for (int i=0;i<snake.length;i++)
         {
@@ -192,50 +208,65 @@ public class Game extends Canvas  implements Runnable{
         running = false;
         try {
             thread.join();
-        } catch (InterruptedException e) {
+        }catch (IllegalStateException e){
+
+        }
+        catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
     public void render(){ //displaying on the screen
-        try{
-            RetroGame = Font.createFont(Font.TRUETYPE_FONT, new File("res/RetroGaming.ttf")).deriveFont(40F);
-        }
-        catch (IOException | FontFormatException e){
+            try{
 
-        }
-        BufferStrategy bs = getBufferStrategy();
-        if(bs==null){
-            createBufferStrategy(3); //3 bufferstrategy will build up our screen
-            return;
-        }
-        Graphics g = bs.getDrawGraphics();
+                if (!showMainMenu){
+                    BufferStrategy bs = getBufferStrategy();
+                    if(bs==null){
+                        createBufferStrategy(3); //3 bufferstrategy will build up our screen
+                        return;
+                    }
+                    Graphics g = bs.getDrawGraphics();
+                    if (gameComplete){
+                        g.setColor(Color.BLACK);
+                        g.fillRect(0,0,getWidth(),getHeight());
+                        g.setColor(Color.WHITE);
+                        g.setFont(RetroGame.deriveFont(70F));
+                        g.drawString("Game Completed!",getWidth()/2-350,getHeight()/2);
+                        bs.show();
+                        Restart();
+                    }
 
-        if (!showDeathScreen) {
-            g.drawImage(background,0,0,getWidth(),getHeight(),null);
-        }
-        if(showDeathScreen){
-            g.setColor(Color.BLACK);
-            g.fillRect(0,0,getWidth(),getHeight());
-            if (!gameOver){
-                g.setColor(Color.WHITE);
-                g.setFont(RetroGame);
-                g.drawImage(Game.player[0].getBufferedImage(),getWidth()/2-50,getHeight()/2,100,100,null);
-                g.drawString("x"+lives,getWidth()/2-100,getHeight()/2+70);
-            }else {
-                g.setColor(Color.WHITE);
-                g.setFont(RetroGame.deriveFont(70F));
-                g.drawString("Game Over",getWidth()/2-200,getHeight()/2);
-                handler.clearLevel();
-                handler.tick();
-                launcher.render(g);
+                    if (!showDeathScreen) {
+                        g.drawImage(background,0,0,getWidth(),getHeight(),null);
+                    }
+                    if(showDeathScreen){
+                        g.setColor(Color.BLACK);
+                        g.fillRect(0,0,getWidth(),getHeight());
+                        if (!gameOver){
+                            g.setColor(Color.WHITE);
+                            g.setFont(RetroGame);
+                            if (character=="Man") g.drawImage(Game.player[0].getBufferedImage(),getWidth()/2-50,getHeight()/2,100,100,null);
+                            else g.drawImage(Game.player2[0].getBufferedImage(),getWidth()/2-50,getHeight()/2,100,100,null);
+                            g.drawString("x"+lives,getWidth()/2-100,getHeight()/2+70);
+                        }else {
+                            g.setColor(Color.WHITE);
+                            g.setFont(RetroGame.deriveFont(70F));
+                            g.drawString("Game Over",getWidth()/2-200,getHeight()/2);
+                            bs.show();
+                            Restart();
+                        }
+                    }
+                    if (playing) g.translate(cam.getX(),cam.getY());
+                    if (playing && !showDeathScreen) handler.render(g);
+                    g.dispose();
+                    bs.show();
+                }else if (stop ==0){
+                    stop =1;
+                    mainMenu();
+                }
+            }catch (IllegalStateException e){
+
             }
-        }
-        if (playing) g.translate(cam.getX(),cam.getY());
-        if (playing && !showDeathScreen) handler.render(g);
-        else if (!playing) launcher.render(g);
-        g.dispose();
-        bs.show();
     }
 
     public static int getFrameWidth(){
@@ -268,14 +299,19 @@ public class Game extends Canvas  implements Runnable{
                 if(!e.goingDownPipe)cam.tick(e);
             }
         }
-        if(showDeathScreen&&!gameOver&&playing) deathScreenTime++;
+        if(showDeathScreen&&!gameOver&&!gameComplete&&playing) deathScreenTime++;
+        if (gameComplete){
+            showDeathScreen =false;
+            deathScreenTime =0;
+            playing=false;
+        }
         if(deathScreenTime>=180){
             if (!gameOver){
                 showDeathScreen =false;
                 deathScreenTime =0;
                 handler.clearLevel();
                 handler.createLevel(levels[level]);
-                themesong.play();
+                //themesong.play();
                 coins=0;
             }
             else if(gameOver){
@@ -287,15 +323,210 @@ public class Game extends Canvas  implements Runnable{
         }
     }
 
-    public static void main (String[] args){
-        Game game = new Game();
-        JFrame frame = new JFrame(TITTLE);
+    public void initMainButtons(){
+        try{
+            RetroGame = Font.createFont(Font.TRUETYPE_FONT, new File("res/RetroGaming.ttf")).deriveFont(40F);
+        }
+        catch (IOException | FontFormatException e){
+
+        }
+
+        buttonProperties(chooseLevelBtn);
+        chooseLevelBtn.setBounds(WIDTH*SCALE/2-buttonWidth/2,0,buttonWidth,buttonHeight);
+        chooseLevelBtn.addActionListener(this::startClicked);
+
+        buttonProperties(chooseCharBtn);
+        chooseCharBtn.setBounds(WIDTH*SCALE/2-buttonWidth/2,buttonHeight,buttonWidth,buttonHeight);
+        chooseCharBtn.addActionListener(this::chooseCharClicked);
+
+        buttonProperties(settingsBtn);
+        settingsBtn.setBounds(WIDTH*SCALE/2-buttonWidth/2,buttonHeight*2,buttonWidth,buttonHeight);
+
+        buttonProperties(quitBtn);
+        quitBtn.setBounds(WIDTH*SCALE/2-buttonWidth/2,buttonHeight*3,buttonWidth,buttonHeight);
+        quitBtn.addActionListener(this::quitClicked);
+    }
+
+    public void mainMenu(){
+        JFrame jframe = new JFrame(TITTLE);
+        frame=jframe;
+        jpanel.setLayout(null);
+        jpanel.setBackground(Color.BLUE);
+
+        frame.setBounds(0,0,WIDTH*SCALE,HEIGHT*SCALE);
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        mainMenuButtons();
+        frame.setVisible(true);
+
+    }
+    public void mainMenuButtons(){
+        jpanel.add(chooseLevelBtn);
+        jpanel.add(chooseCharBtn);
+        jpanel.add(settingsBtn);
+        jpanel.add(quitBtn);
+
+        frame.add(jpanel);
+    }
+
+    public void buttonProperties(JButton button) {
+
+        button.setBorder(null);
+        button.setOpaque(false);
+        button.setContentAreaFilled(false);
+        button.setBorderPainted(false);
+        button.setFocusPainted(false);
+        button.setFont(RetroGame.deriveFont(60F));
+        button.setForeground(Color.WHITE);
+
+        button.addMouseListener(new MouseAdapter() {
+            Color oldcolor = button.getForeground();
+            public void mouseEntered(MouseEvent me) {
+                oldcolor = button.getForeground();
+                button.setForeground(Color.red);
+            }
+            public void mouseExited(MouseEvent me) {
+                button.setForeground(oldcolor);
+            }
+            public void mousePressed(MouseEvent me) {button.setForeground(oldcolor); }
+        });
+
+        jpanel.add(button);
+    }
+    public void quitClicked(ActionEvent e){
+        System.exit(1);
+    }
+    public void startClicked(ActionEvent e){
+        chooseLevel();
+
+    }
+    private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {
+        Image img = icon.getImage();
+        Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);
+        return new ImageIcon(resizedImage);
+    }
+    public void chooseCharClicked(ActionEvent e){
+        jpanel.removeAll();
+        jpanel.repaint();
+        JButton char1Btn = new JButton();
+        buttonProperties(char1Btn);
+        char1Btn.setBounds(buttonWidth/2,HEIGHT*SCALE/2-buttonHeight,buttonWidth/4,buttonHeight);
+        ImageIcon icon1 = new ImageIcon("res/c1right.png");
+        ImageIcon icon2 = new ImageIcon("res/c2right.png");
+        int offset = char1Btn.getInsets().left;
+        char1Btn.setIcon(resizeIcon(icon1, char1Btn.getWidth() - offset, char1Btn.getHeight() - offset));
+        char1Btn.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent me) {
+                character="Man";
+                jpanel.removeAll();
+                jpanel.repaint();
+                frame.remove(jpanel);
+                mainMenuButtons();
+            }
+        });
+
+        JButton char2Btn = new JButton();
+        buttonProperties(char2Btn);
+        char2Btn.setBounds(WIDTH*SCALE-buttonWidth/2-buttonWidth/4,HEIGHT*SCALE/2-buttonHeight,buttonWidth/4,buttonHeight);
+        char2Btn.setIcon(resizeIcon(icon2, char2Btn.getWidth() - offset, char2Btn.getHeight() - offset));
+        char2Btn.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent me) {
+                character="Woman";
+                jpanel.removeAll();
+                jpanel.repaint();
+                frame.remove(jpanel);
+                mainMenuButtons();
+            }
+        });
+
+        /*JButton backBtn = new JButton("Vissza");
+        buttonProperties(backBtn);
+        backBtn.setBounds(WIDTH*SCALE/2-buttonWidth/2,buttonHeight*4,buttonWidth,buttonHeight);
+        backBtn.setFont(RetroGame.deriveFont(40F));
+        backBtn.addActionListener(this::backClicked);*/
+
+        frame.add(jpanel);
+    }
+
+    public void backClicked(ActionEvent e) {
+        jpanel.removeAll();
+        jpanel.repaint();
+        frame.remove(jpanel);
+        mainMenuButtons();
+    }
+    public void chooseLevel(){
+        jpanel.removeAll();
+        jpanel.repaint();
+        frame.remove(jpanel);
+        int y=0;
+        JButton levelButtons[] = new JButton[10];
+        for (int i=0;i<levelButtons.length;i++){
+            levelButtons[i]= new JButton();
+        }
+        for (int i=0;i<levelButtons.length;i+=2){
+            int chooselevel=i;
+            buttonProperties(levelButtons[i]);
+            buttonProperties(levelButtons[i+1]);
+            levelButtons[i].setText("Level "+(i+1));
+            levelButtons[i].setBounds(0,y,buttonWidth,buttonHeight);
+            levelButtons[i].addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent me) {
+                    startGame(chooselevel);
+                }
+            });
+
+            levelButtons[i+1].setText("Level "+(i+2));
+            levelButtons[i+1].setBounds(buttonWidth,y,buttonWidth,buttonHeight);
+            levelButtons[i+1].addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent me) {
+                    startGame(chooselevel +1);
+                }
+            });
+
+
+            y+=200;
+        }
+        frame.add(jpanel);
+    }
+    public void startGame(int chooseLevel){
+        level=chooseLevel;
+        frame.setVisible(false);
+        JFrame jframe = new JFrame(TITTLE);
+        frame = jframe;
         frame.add(game);
         frame.pack();
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        showMainMenu=false;
+        playing=true;
         frame.setVisible(true);
         game.start();
+    }
+
+    public void actionPerformed(ActionEvent e) {
+    }
+
+    public static void main (String[] args){
+        game.initMainButtons();
+        game.mainMenu();
+    }
+    public void Restart(){
+        lives=1;
+        handler.clearLevel();
+        gameOver=false;
+        playing=false;
+        try{
+            TimeUnit.SECONDS.sleep(5);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        jpanel.removeAll();
+        jpanel.repaint();
+        frame.setVisible(false);
+        showMainMenu=true;
+        stop =0;
     }
 }
