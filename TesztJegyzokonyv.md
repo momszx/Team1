@@ -16,8 +16,8 @@
 
 |  Név | Szerepkör |
 |---|:-:|
-| Szabó Noémi |   |
-| Belkovics Dénes |  |
+| Szabó Nóra | Designer |
+| Belkovics Dénes | Designer |
 | Czafik Milán |  |
 | Donkó Róbert Márk |  Projekt manager, Test maneger |
 
