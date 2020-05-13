@@ -17,7 +17,6 @@ import java.util.Random;
 public class Player extends Entity {
 
     private Random rnd = new Random();
-
     private PlayerState state;
     private int pixelsTravelled = 0;
     private boolean invincible=false;
@@ -137,15 +136,9 @@ public class Player extends Entity {
             }
             if(getBoundsRight().intersects(t.getBounds())) {
                 setVelX(0);
-                if (t.getId()!=Id.flag || state==PlayerState.BIG){
-                    x = t.getX()-t.width-10;
-                }
-                else x = t.getX()-t.width;
+                x = t.getX()-t.width;
             }
 
-            if (t.getId()==Id.flag){
-                if(getBounds().intersects(t.getBounds())) Game.switchLevel();
-            }
 
         }
 
@@ -271,6 +264,11 @@ public class Player extends Entity {
                             takeDamage();
                         }
                     }
+                }
+            }
+            else if (getBounds().intersects(e.getBounds())&&e.getId()==Id.flag){
+                if (Game.levelCreated){
+                    e.die();
                 }
             }
 

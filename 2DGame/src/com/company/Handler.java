@@ -1,6 +1,7 @@
 package com.company;
 
 import com.company.entity.Entity;
+import com.company.entity.Flag;
 import com.company.entity.mob.*;
 import com.company.powerup.PowerStar;
 import com.company.powerup.Wine;
@@ -78,7 +79,7 @@ public class Handler {
                 if(red == 0 && green == 240 && blue == 255) addTile(new PowerUpBlock(x*64,y*64,64,64,true,Id.powerUp,this, Game.lifeWine,1));
                 if(red == 255 && green==255 && blue==0) addEntity(new Coin(x*64,y*64,64,64,Id.coin,this));
                 if(red == 0 && (green > 123 && green < 129)&& blue == 0) addTile(new Pipe(x*64, y*64, 64, 64*3, true, Id.pipe, this, 128-green));
-                if(red == 255 && green == 0 && blue == 255) addTile(new Flag(x*64, y*64, 63, 64*5, true, Id.flag, this));
+                if(red == 255 && green == 0 && blue == 255) addEntity(new Flag(x*64, y*64, 63, 64*5,  Id.flag, this));
                 if(red == 255 && green == 100 && blue == 100) addEntity(new Plant(x*64, y*64, 64, 64, Id.plant, this));
                 if(red == 100 && green == 100 && blue == 255) addEntity(new PowerStar(x*64, y*64, 50, 50, Id.poweStar, this));
 

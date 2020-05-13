@@ -55,6 +55,9 @@ public abstract class Entity {
 
     public void die(){
         handler.removeEntity(this);
+        if (getId()==Id.flag){
+            Game.switchLevel();
+        }
         if (getId()==Id.towerBoss){
             Game.themesong.stop();
             Game.showDeathScreen=true;

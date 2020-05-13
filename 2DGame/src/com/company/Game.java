@@ -1,9 +1,11 @@
 package com.company;
 
 import com.company.entity.Entity;
+import com.company.entity.mob.Player;
 import com.company.graphics.Sprite;
 import com.company.graphics.SpriteSheet;
 import com.company.inputs.KeyInput;
+import com.company.state.PlayerState;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,11 +16,13 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.*;
 import java.util.concurrent.TimeUnit;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Game extends Canvas  implements Runnable,ActionListener{
+
 
     public static  final int WIDTH =450; //Ezekkel lehet szorakozni, nekem nagy dög monitorom van, szóval így jó :D
     public static  final int HEIGHT = 300; //same
@@ -32,6 +36,9 @@ public class Game extends Canvas  implements Runnable,ActionListener{
     private static BufferedImage[] levels;
     private static BufferedImage background;
     private static int level = 0;
+    private static int levelsCompleted=0;
+
+    public static boolean levelCreated=true;
 
     private static int stop = 0;
     public static int coins =0;
@@ -73,6 +80,7 @@ public class Game extends Canvas  implements Runnable,ActionListener{
     public static Sound loasealife;
     public static Sound themesong;
 
+    public static JButton levelButtons[] = new JButton[10];
     public static  JPanel jpanel = new JPanel();
     public static JFrame frame=new JFrame();
     public static JButton chooseLevelBtn=new JButton("Pályaválasztás");
@@ -91,7 +99,8 @@ public class Game extends Canvas  implements Runnable,ActionListener{
     }
 
      private void init(){
-        handler =new Handler();
+
+         handler =new Handler();
         sheet = new SpriteSheet("/SpriteSheet.png");
         addKeyListener(new KeyInput());
         cam =new Camera();
@@ -153,8 +162,8 @@ public class Game extends Canvas  implements Runnable,ActionListener{
         try {
             background = ImageIO.read(getClass().getResource("/GameBackGround.png"));
             for (int i=0;i<levels.length;i++){
-                String asd = "/level"+(i+1)+".png";
-                levels[i] = ImageIO.read(getClass().getResource(asd));
+                String levelpath = "/level"+(i+1)+".png";
+                levels[i] = ImageIO.read(getClass().getResource(levelpath));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -237,6 +246,7 @@ public class Game extends Canvas  implements Runnable,ActionListener{
                     }
 
                     if (!showDeathScreen) {
+                        levelCreated=true;
                         g.drawImage(background,0,0,getWidth(),getHeight(),null);
                     }
                     if(showDeathScreen){
@@ -286,10 +296,23 @@ public class Game extends Canvas  implements Runnable,ActionListener{
     }
 
     public static void switchLevel(){
+        try{
+            Connection con = DriverManager.getConnection("jdbc:h2:C:/Team1/2DGame/res/Database.db","AFPTEAM","password");
+            Statement myStatement = con.createStatement();
+            String SQL = "update levels set levelsCompleted=levelsCompleted+1";
+            myStatement.executeUpdate(SQL);
+            con.close();
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        levelCreated=true;
         level++;
-
+        System.out.println(level);
+        System.out.println(levelsCompleted);
         handler.clearLevel();
         handler.createLevel(levels[level]);
+        levelCreated=false;
     }
 
     public void tick(){
@@ -311,7 +334,7 @@ public class Game extends Canvas  implements Runnable,ActionListener{
                 deathScreenTime =0;
                 handler.clearLevel();
                 handler.createLevel(levels[level]);
-                //themesong.play();
+                themesong.play();
                 coins=0;
             }
             else if(gameOver){
@@ -332,18 +355,18 @@ public class Game extends Canvas  implements Runnable,ActionListener{
         }
 
         buttonProperties(chooseLevelBtn);
-        chooseLevelBtn.setBounds(WIDTH*SCALE/2-buttonWidth/2,0,buttonWidth,buttonHeight);
+        chooseLevelBtn.setBounds(WIDTH*SCALE/2-buttonWidth/2,100,buttonWidth,buttonHeight);
         chooseLevelBtn.addActionListener(this::startClicked);
 
         buttonProperties(chooseCharBtn);
-        chooseCharBtn.setBounds(WIDTH*SCALE/2-buttonWidth/2,buttonHeight,buttonWidth,buttonHeight);
+        chooseCharBtn.setBounds(WIDTH*SCALE/2-buttonWidth/2,100+buttonHeight,buttonWidth,buttonHeight);
         chooseCharBtn.addActionListener(this::chooseCharClicked);
 
         buttonProperties(settingsBtn);
-        settingsBtn.setBounds(WIDTH*SCALE/2-buttonWidth/2,buttonHeight*2,buttonWidth,buttonHeight);
+        settingsBtn.setBounds(WIDTH*SCALE/2-buttonWidth/2,100+buttonHeight*2,buttonWidth,buttonHeight);
 
         buttonProperties(quitBtn);
-        quitBtn.setBounds(WIDTH*SCALE/2-buttonWidth/2,buttonHeight*3,buttonWidth,buttonHeight);
+        quitBtn.setBounds(WIDTH*SCALE/2-buttonWidth/2,100+buttonHeight*3,buttonWidth,buttonHeight);
         quitBtn.addActionListener(this::quitClicked);
     }
 
@@ -351,7 +374,7 @@ public class Game extends Canvas  implements Runnable,ActionListener{
         JFrame jframe = new JFrame(TITTLE);
         frame=jframe;
         jpanel.setLayout(null);
-        jpanel.setBackground(Color.BLUE);
+        jpanel.setBackground(Color.GRAY);
 
         frame.setBounds(0,0,WIDTH*SCALE,HEIGHT*SCALE);
         frame.setResizable(false);
@@ -457,11 +480,22 @@ public class Game extends Canvas  implements Runnable,ActionListener{
         mainMenuButtons();
     }
     public void chooseLevel(){
+        try{
+            Connection con = DriverManager.getConnection("jdbc:h2:C:/Team1/2DGame/res/Database.db","AFPTEAM","password");
+            Statement myStatement = con.createStatement();
+            String SQL = "select * from levels";
+            ResultSet rs = myStatement.executeQuery(SQL);
+            rs.next();
+            levelsCompleted=Integer.parseInt(rs.getString("levelsCompleted"));
+            con.close();
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
         jpanel.removeAll();
         jpanel.repaint();
         frame.remove(jpanel);
         int y=0;
-        JButton levelButtons[] = new JButton[10];
         for (int i=0;i<levelButtons.length;i++){
             levelButtons[i]= new JButton();
         }
@@ -473,7 +507,10 @@ public class Game extends Canvas  implements Runnable,ActionListener{
             levelButtons[i].setBounds(0,y,buttonWidth,buttonHeight);
             levelButtons[i].addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent me) {
-                    startGame(chooselevel);
+                    if (levelButtons[chooselevel].isEnabled()){
+                        startGame(chooselevel);
+                    }
+
                 }
             });
 
@@ -481,14 +518,24 @@ public class Game extends Canvas  implements Runnable,ActionListener{
             levelButtons[i+1].setBounds(buttonWidth,y,buttonWidth,buttonHeight);
             levelButtons[i+1].addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent me) {
-                    startGame(chooselevel +1);
+                    if (levelButtons[chooselevel+1].isEnabled()){
+                        startGame(chooselevel+1);
+                    }
                 }
             });
 
 
             y+=200;
         }
+        checkLevels();
+
+
         frame.add(jpanel);
+    }
+    public void checkLevels(){
+        for (int i = 9;i>levelsCompleted;i--){
+            levelButtons[i].setEnabled(false);
+        }
     }
     public void startGame(int chooseLevel){
         level=chooseLevel;
