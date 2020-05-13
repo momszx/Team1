@@ -205,24 +205,24 @@ Az alábbi nem-funkcionális elvárások szerepelnek az üzleti illetve fejleszt
 
 |   |   |
 |---|---|
-| A teszt-eset leírás és célja:  |  |
-| A tesztelt folyamat/funkció leírása:  | |
-| A tesztelés előfeltételei:  |    |
-| A tesztelés dátuma és időpontja:  |  |
-| A tesztadatok típusa:  |  |
-| A tesztet végző személy(ek):  | név  |
-| A tesztelt rendszer beállításai:  |   |
-| A teszt-eset elvárt eredménye:  |   |
+| A teszt-eset leírás és célja:  | Zene , Hang teszt |
+| A tesztelt folyamat/funkció leírása:  | Zene , hang |
+| A tesztelés előfeltételei:  |  -  |
+| A tesztelés dátuma és időpontja:  | 2020.05.12 |
+| A tesztadatok típusa:  | Megfelel/Nem felel meg |
+| A tesztet végző személy(ek):  | Donkó Róbert Márk  |
+| A tesztelt rendszer beállításai:  | Standard  |
+| A teszt-eset elvárt eredménye:  | Sikeres  |
 | A tesztelés eredménye:  | **Megfelelt/élesíthető**  |
-| Megjegyzések:  | -  |
+| Megjegyzések:  | A tesztelt folyamatok az elvárt követelményeknek megfelelnek.  |
 
 **Tesztelést elvégezte**
 
 |   |   |
 |---|---|
-|  Név: |  név |
-|  Szervezeti egység/ beosztás: |  |
-|  Dátum: |    |
+|  Név: |  Donkó Róbert Márk |
+|  Szervezeti egység/ beosztás: | Projekt manager, Test maneger |
+|  Dátum: |  2020.05.12  |
 
 ### 5.4 Tesztelési jegyzőkönyv - 4. 
 
@@ -260,59 +260,59 @@ Az alábbi nem-funkcionális elvárások szerepelnek az üzleti illetve fejleszt
 ### 6.1 Tesztelési jelentés -  1.  
 |   |   |
 |---|---|
-| A hivatkozott tesztjegyzőkönyvek rövid leírása és eredménye:  |  |
-| A tesztelt folyamatok/funkciók/modulok leírása: |  |
-| A tesztadatok típusa:  |  |
-| A tesztelt rendszer beállításai:  |   |
+| A hivatkozott tesztjegyzőkönyvek rövid leírása és eredménye:  | GUI, megfelelő megjelenítés |
+| A tesztelt folyamatok/funkciók/modulok leírása: |  Menü, ingame |
+| A tesztadatok típusa:  | Megfelel/Nem felel meg |
+| A tesztelt rendszer beállításai:  | Standard  |
 | A tesztelés eredménye:  | **élesíthető**  |
-| Megjegyzések:  |  |
+| Megjegyzések:  | A menüpontok a tervezettként funkcionálnak, minden végzi a dolgát, hibát nem fedeztem fel. |
 
 **Tesztelést elvégezte**
 
 |   |   |
 |---|---|
-|  Név: |   |
+|  Név: |  Belkovics Dénes |
 |  Szervezeti egység/ beosztás: |   |
 |  Dátum: |  2020.01.06 12:15  |
 |   |   |
-|  Név: |  név  |
+|  Név: |  Belkovics Dénes |
 |  Szervezeti egység/ beosztás: |   |
 |  Dátum: |  2020.01.06 14:36  |
 
 ### 6.2 Tesztelési jelentés - 2. 
 |   |   |
 |---|---|
-| A hivatkozott tesztjegyzőkönyvek rövid leírása és eredménye:  |  |
-| A tesztelt folyamatok/funkciók/modulok leírása: |   |
-| A tesztadatok típusa:  |   |
-| A tesztelt rendszer beállításai:  |  |
+| A hivatkozott tesztjegyzőkönyvek rövid leírása és eredménye:  | Gameplay, hibák felülvizsgálata |
+| A tesztelt folyamatok/funkciók/modulok leírása: |  Enemies, powerups, movement |
+| A tesztadatok típusa:  |  Megfelel/Nem felel meg |
+| A tesztelt rendszer beállításai:  | Standard |
 | A tesztelés eredménye:  | **Megfelelt/élesíthető**  |
-| Megjegyzések:  | -  |
+| Megjegyzések:  | A tesztelt folyamatok az elvárt követelményeknek megfelelnek. Néha 1-1 blokkba beleakad a játékos, de ez nem befolyásolja a játékélményt. Az enemy-k megfelelően mozognak, ha hozzáér a játékos, game over, ha ráugrik megöli. a powerupok a szerepüket betöltik.  |
 
 **Tesztelést elvégezte**
 
 |   |   |
 |---|---|
-|  Név: |  Donkó Róbert Márk |
-|  Szervezeti egység/ beosztás: | Test manager  |
+|  Név: |  Belkovics Dénes |
+|  Szervezeti egység/ beosztás: | Designer  |
 |  Dátum: |  2020.01.06 12:15  |
 
 
 ### 6.3 Tesztelési jelentés - 3. 
 |   |   |
 |---|---|
-| A hivatkozott tesztjegyzőkönyvek rövid leírása és eredménye:  |  |
-| A tesztelt folyamatok/funkciók/modulok leírása: |   |
-| A tesztadatok típusa:  | szöveg  |
-| A tesztelt rendszer beállításai:  |   |
+| A hivatkozott tesztjegyzőkönyvek rövid leírása és eredménye:  | Zene , Hang teszt |
+| A tesztelt folyamatok/funkciók/modulok leírása: |  Zene , Hang |
+| A tesztadatok típusa:  | Megfelel/Nem felel meg  |
+| A tesztelt rendszer beállításai:  | Standard  |
 | A tesztelés eredménye:  | **Megfelelt/élesíthető**  |
-| Megjegyzések:  | -  |
+| Megjegyzések:  | A tesztelt folyamatok az elvárt követelményeknek megfelelnek.  |
 
 **Tesztelést elvégezte**
 
 |   |   |
 |---|---|
-|  Név: |  név |
+|  Név: |  Donkó Róbert Márk |
 |  Szervezeti egység/ beosztás: |   |
 |  Dátum: |  2020.01.06 13:58  |
 
@@ -338,6 +338,6 @@ Az alábbi nem-funkcionális elvárások szerepelnek az üzleti illetve fejleszt
 
 |   |   |
 |---|---|
-|  Név: |   |
-|  Szervezeti egység/ beosztás: |   |
+|  Név: |  Donkó Róbert Márk |
+|  Szervezeti egység/ beosztás: |  Projekt manager, Test maneger |
 |  Dátum: |  2020.01.07 11:00  |
