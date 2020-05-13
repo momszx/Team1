@@ -35,7 +35,8 @@ Tesztelés célja a projektben megtalálható struktúrális és design hibák f
 - Az **team1** projektcsapat felelős a tesztadatok előállításáért.
 
 ## 2 Szükséges erőforrások
-Ez a fejezet a teszteléshez szükséges erőforrásokat fejti ki.
+- Windows alapú rendszer
+- src mappa csatolása
 
 ### 2.1 Feladatkörök és felelősségek (tesztcsapat meghatározása)
 | Feladatkör  |  Felelősség/tevékenység |  Személy  |
@@ -70,7 +71,16 @@ Az összes teszt dokumentáció és leszállítandó a következő helyen érhet
 - Mysql workbench *mysql workbench* [LINK](https://www.mysql.com/products/workbench/)
 
 ## 3 Tesztelési terv
-Ez a fejezet leírja a teszt típusát, a metodológiáját és a riport készítés módszerét. Emellett meghatározza a teszt elvárásokat, a teszt-esetek elvárt eredményeit, sikerességének kritériumait, a kockázatok kezelését és a hatáskörön kívül eseteket.
+Fejezeteket teszteltünk, csakis akkor töltöttük fel a programkódot ha az megfelelt az elvárt követelményeknek, és a lehető legkevesebb bugot tartalmazta/nem is tartalmazott.
+**Tesztelés lépcsői:**
+- Graphics and BufferStrategies
+- Handler
+- Movement, collision, jumping
+- Sprites and SpriteSheets
+- Animation
+- Camera
+- Level design
+- Powerup, Enemies, Coins, Mini Boss
 
 ### 3.1 Fejlesztői teszt
 A fejlesztői tesztelés célja a rendszer alapvető funkcióinak ellenőrzése, a hibakezelés és az alapvető funkciók működésének vizsgálata
@@ -127,27 +137,18 @@ Az alábbi funkcionális elvárások szerepelnek az üzleti illetve fejlesztői 
 
 | #  | Leírás |
 |---|---|
-| 1. |   |
-| 2. |   |
-| 3. |   |
+| 1. | GUI |
+| 2. | Gameplay |
+| 3. | Design |
 
 Az alábbi nem-funkcionális elvárások szerepelnek az üzleti illetve fejlesztői specifikációban, amelyek tesztelésre is kerültek: 
 
 | #  | Leírás |
 |---|---|
-| 1. |   |
-| 2. |   |
-| 3. | |
-| 4. |    |
-
-Az alábbi elvárások szerepelnek az üzleti illetve fejlesztői specifikációban, amelyek nem kerültek tesztelésre: 
-> A dokumentum átdolgozás alatt (Hiányzó tesztelési elvárás a üzleti illetve fejlesztői specifikációban).
-
-| #  | Leírás |
-|---|---|
-| 1. |   |
-| 2. |   |
-| 3. |   |
+| 1. | Felhasználóbarát felület |
+| 2. | Gyors működés |
+| 3. | Optimalizált |
+| 4. | Megbízható |
 
 ### 4.4 Elfogadási kritériumok
 - Technikai, a teszt forgatókönyvben leírtak szerint.
@@ -158,47 +159,47 @@ Az alábbi elvárások szerepelnek az üzleti illetve fejlesztői specifikáció
 
 |   |   |
 |---|---|
-| A teszt-eset leírás és célja:  |  |
-| A tesztelt folyamat/funkció leírása:  |    |
-| A tesztelés előfeltételei:  |   |
-| A tesztelés dátuma és időpontja:  |   |
-| A tesztadatok típusa:  | N/A  |
-| A tesztet végző személy(ek):  |  |
-| A tesztelt rendszer beállításai:  |  |
-| A teszt-eset elvárt eredménye:  |   |
+| A teszt-eset leírás és célja:  | GUI, megfelelő megjelenítés |
+| A tesztelt folyamat/funkció leírása:  |  Menü, ingame  |
+| A tesztelés előfeltételei:  | - |
+| A tesztelés dátuma és időpontja:  | 2020.05.12. |
+| A tesztadatok típusa:  | Megfelel/Nem felel meg |
+| A tesztet végző személy(ek):  | Belkovics Dénes |
+| A tesztelt rendszer beállításai:  | Standard |
+| A teszt-eset elvárt eredménye:  | Sikeres |
 | A tesztelés eredménye:  | **Megfelelt/élesíthető**  |
-| Megjegyzések:  | -  |
+| Megjegyzések:  | A menüpontok a tervezettként funkcionálnak, minden végzi a dolgát, hibát nem fedeztem fel. |
 
 **Tesztelést elvégezte**
 
 |   |   |
 |---|---|
-|  Név: |  |
-|  Szervezeti egység/ beosztás: |   |
-|  Dátum: |   |
+|  Név: | Belkovics Dénes |
+|  Szervezeti egység/ beosztás: | Designer |
+|  Dátum: | 2020.05.13. |
 
 ### 5.2 Tesztelési jegyzőkönyv - 2. 
 
 |   |   |
 |---|---|
-| A teszt-eset leírás és célja:  |  |
-| A tesztelt folyamat/funkció leírása:  |   |
-| A tesztelés előfeltételei:  |   |
-| A tesztelés dátuma és időpontja:  |   |
-| A tesztadatok típusa:  |   |
-| A tesztet végző személy(ek):  |  |
-| A tesztelt rendszer beállításai:  |   |
-| A teszt-eset elvárt eredménye:  |   |
+| A teszt-eset leírás és célja:  | Gameplay, hibák felülvizsgálata |
+| A tesztelt folyamat/funkció leírása:  | Enemies, powerups, movement |
+| A tesztelés előfeltételei:  | - |
+| A tesztelés dátuma és időpontja:  | 2020.05.12 |
+| A tesztadatok típusa:  | Megfelel/Nem felel meg |
+| A tesztet végző személy(ek):  | Belkovics Dénes |
+| A tesztelt rendszer beállításai:  | Standard |
+| A teszt-eset elvárt eredménye:  | Sikeres |
 | A tesztelés eredménye:  | **Megfelelt/élesíthető**  |
-| Megjegyzések:  | -  |
+| Megjegyzések:  | A tesztelt folyamatok az elvárt követelményeknek megfelelnek. Néha 1-1 blokkba beleakad a játékos, de ez nem befolyásolja a játékélményt. Az enemy-k megfelelően mozognak, ha hozzáér a játékos, game over, ha ráugrik megöli. a powerupok a szerepüket betöltik. |
 
 **Tesztelést elvégezte**
 
 |   |   |
 |---|---|
-|  Név: |   |
-|  Szervezeti egység/ beosztás: | |
-|  Dátum: |    |
+|  Név: | Belkovics Dénes |
+|  Szervezeti egység/ beosztás: | Designer |
+|  Dátum: | 2020.05.13. |
 
 ### 5.3 Tesztelési jegyzőkönyv - 3.
 
